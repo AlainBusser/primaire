@@ -1,0 +1,110 @@
+<html lang="fr">
+  <head>
+    <title>Nirina 2</title>
+    <meta charset="utf-8">
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
+<script src="http://cdnjs.cloudflare.com/ajax/libs/coffee-script/1.3.1/coffee-script.min.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script type="text/javascript" src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+  <script src="https://raw.github.com/furf/jquery-ui-touch-punch/master/jquery.ui.touch-punch.min.js"></script>
+    <style>
+		table { border: 2px outset brown; border-collapse: collapse; }
+		td { font-size: 200%; width: 1.5em; min-width: 1.5em; height: 1.5em; min-height: 1.5em;border: 1px solid brown; text-shadow: 0.2em 0.1em 0.05em rgba(0,0,0,0.3); }
+		.noire { background: brown; }
+		.blanche { background: ivory; }
+		footer { font-size: 64%; font-style: italic; text-align: right; }
+    </style>
+  </head>
+  <body>
+	  <h1>Un autre descendant d'alquerque</h1>
+	  <p>Chaque pion ne figure que sur une case de sa propre couleur, et y reste:
+	  <ul>
+		  <li>Les pions ne bougent que diagonalement, d'une seule case;</li>
+		  <li>La prise se fait en sautant par-dessus un pion de la couleur adverse, comme au solitaire ou au Konane.</li>
+	  </ul>
+	  </p>
+	  
+<table id="echiquier">
+	<tr>
+		<td class="noire"><div>♟</div></td><td class="blanche"></td><td class="noire"><div>♟</div></td><td class="blanche"></td>
+		<td class="noire"><div>♟</div></td><td class="blanche"></td><td class="noire"><div>♟</div></td><td class="blanche"></td>
+	</tr>
+	<tr>
+		<td class="blanche"></td><td class="noire"><div>♟</div></td><td class="blanche"></td><td class="noire"><div>♟</div></td>
+		<td class="blanche"></td><td class="noire"><div>♟</div></td><td class="blanche"></td><td class="noire"><div>♟</div></td>
+	</tr>
+	<tr>
+		<td class="noire"></td><td class="blanche"></td><td class="noire"></td><td class="blanche"></td>
+		<td class="noire"></td><td class="blanche"></td><td class="noire"></td><td class="blanche"></td>
+	</tr>
+	<tr>
+		<td class="blanche"></td><td class="noire"></td><td class="blanche"></td><td class="noire"></td>
+		<td class="blanche"></td><td class="noire"></td><td class="blanche"></td><td class="noire"></td>
+	</tr>
+	<tr>
+		<td class="noire"></td><td class="blanche"></td><td class="noire"></td><td class="blanche"></td>
+		<td class="noire"></td><td class="blanche"></td><td class="noire"></td><td class="blanche"></td>
+	</tr>
+	<tr>
+		<td class="blanche"></td><td class="noire"></td><td class="blanche"></td><td class="noire"></td>
+		<td class="blanche"></td><td class="noire"></td><td class="blanche"></td><td class="noire"></td>
+	</tr>
+	<tr>
+		<td class="noire"></td><td class="blanche"><div>♙</div></td><td class="noire"></td><td class="blanche"><div>♙</div></td>
+		<td class="noire"></td><td class="blanche"><div>♙</div></td><td class="noire"></td><td class="blanche"><div>♙</div></td>
+	</tr>
+	<tr>
+		<td class="blanche"><div>♙</div></td><td class="noire"></td><td class="blanche"><div>♙</div></td><td class="noire"></td>
+		<td class="blanche"><div>♙</div></td><td class="noire"></td><td class="blanche"><div>♙</div></td><td class="noire"></td>
+	</tr>
+</table>
+
+	  
+<script type="text/coffeescript">
+joueur = 0		
+joueurs = ['blancs', 'noirs']
+
+$ ->
+	$(".blanche").sortable 
+		connectWith: ".blanche"
+		stop: (e,u) ->
+			x1 = $(this).index()			# d'où je viens'
+			y1 = $(this).parent().index()
+			y2 = u.item.parent().parent().index()	# où je vais
+			x2 = u.item.parent().index()
+			d2 = Math.pow(x1-x2,2)+Math.pow(y1-y2,2)
+			mx = (x1+x2)/2
+			my = (y1+y2)/2
+			if (u.item.parent().html().match(/♙/g) || []).length is 1
+				if d2 is 2
+					joueur = 1
+				if d2 is 4 and ($("#echiquier :nth-child(#{my+1}) :nth-child(#{mx+1})").first().first().html().match(/♟/g) || []).length is 1
+					$("#echiquier :nth-child(#{my+1}) :nth-child(#{mx+1})").first().first().html("")
+					joueur = 1
+			$("#joueur").text joueurs[joueur]
+
+	$(".noire").sortable 
+		connectWith: ".noire"
+		stop: (e,u) ->
+			x1 = $(this).index()			# d'où je viens'
+			y1 = $(this).parent().index()
+			y2 = u.item.parent().parent().index()	# où je vais
+			x2 = u.item.parent().index()
+			d2 = Math.pow(x1-x2,2)+Math.pow(y1-y2,2)
+			mx = (x1+x2)/2
+			my = (y1+y2)/2
+			if (u.item.parent().html().match(/♟/g) || []).length is 1
+				if d2 is 2
+					joueur = 0
+				if d2 is 4 and ($("#echiquier :nth-child(#{my+1}) :nth-child(#{mx+1})").first().first().html().match(/♙/g) || []).length is 1
+					$("#echiquier :nth-child(#{my+1}) :nth-child(#{mx+1})").first().first().html("")
+					joueur = 0
+			$("#joueur").text joueurs[joueur]
+
+</script>
+<h3>C'est aux <span id="joueur">blancs</span> de jouer</h3>
+<p>Le but du jeu est de prendre tous les pions de l'adversaire.</p>
+
+<footer>Jeu inventé par Nirina Mussard, à l'âge de 7 ans</footer>
+  </body>
+</html>

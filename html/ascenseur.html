@@ -1,0 +1,60 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html><head>
+<title>L'ascenseur du Monde</title>
+<script type="text/javascript">
+varier = function(pas) { 
+	if (possible) {
+		if ((S+pas > -1) && (S+pas<=11)) {
+			S += pas;
+			document.getElementById('sortie').value=S;
+			if (fait.indexOf(S)>-1) {
+				alert("Vous avez déjà visité l'étage "+S);
+				possible = false;
+			}
+			fait.push(S);
+			var index = aFaire.indexOf(S);
+			if (index>-1) {
+				aFaire.splice(index,1);
+			}
+			document.getElementById("reste").innerHTML = aFaire;
+		}
+	}
+}
+var S=0;
+var possible = true;
+var fait = [];
+var aFaire = [1,2,3,4,5,6,7,8,9,10,11];
+</script>
+<style type="text/css">
+h1 {color: Red;}
+button.chiffre{background-color: gray; border: none; width: 3em; border-radius: 5px;}
+button.oper{background-color: LightCyan; border: 3px outset cyan; width: 3em; border-radius: 5px;}
+button.important{background-color: LightBlue; border: 3px outset blue; width: 10em; border-radius: 5px;}
+input { text-align: right; color: lightGreen; background-color: Black; font-size: 160%; border: 3px inset brown;}
+table{background-color: gray;}
+</style>
+</head>
+<body>
+<h1>L'ascenseur capricieux</h1>
+<p>Dans cet immeuble de 11 étages, l'ascenseur est bien capricieux. Il ne peut monter que de 2, 3 ou 5 
+étages à la fois, et ne peut descendre que de 4 ou 11 étages. Le concierge, dont la loge est au rez-de-chaussée, 
+doit procéder à la distribution du courrier.
+</p>
+<h2>Comment doit-il opérer pour partir de sa loge, s'arrêter une fois et une seule à chaque étage, 
+et revenir chez lui ?</h2>
+<table border=2><tr><td>Étage :</td></tr><tr><td>
+<input id="sortie" type="text" size=6 value="0" readonly>
+</td></tr><tr><td>Commandes :</td></tr><tr><td>
+<table onClick="getElementById('sortie').value=S;">
+	<tr><td><button class="chiffre"></button></td><td><button id="p2" class="oper" onClick="varier(2);">+2</button></td><td></td></tr>
+	<tr><td><button class="chiffre"></button></td><td><button id="p3" class="oper" onClick="varier(3);">+3</button></td><td></td></tr>
+	<tr><td><button class="chiffre"></button></td><td><button id="p5" class="oper" onClick="varier(5);">+5</button></td><td></td></tr>
+	<tr><td><button class="chiffre"></button></td><td><button id="m4" class="oper" onClick="varier(-4);">-4</button></td><td></td></tr>
+	<tr><td><button class="chiffre"></button></td><td><button id="m11" class="oper" onClick="varier(-11);">-11</button></td><td></td></tr>
+</table>
+</td></tr></table>
+<p>Il reste encore les étages suivants à parcourir: <span id="reste">1,2,3,4,5,6,7,8,9,10,11</span>.</p>
+<footer>D'après E. Busser et G. Cohen, "l'intégrale des jeux mathématiques du Monde", page 176 (ISBN 978 284 884 0741)</footer>
+<p style="color: White;">Logiciel libre sous licence CeCiLL</p>
+</body>
+</html>

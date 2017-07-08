@@ -1,0 +1,96 @@
+<!doctype html>
+ 
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>classement de polygones</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/coffee-script/1.4.0/coffee-script.min.js"></script>
+  <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>
+  <script src="https://raw.github.com/furf/jquery-ui-touch-punch/master/jquery.ui.touch-punch.min.js"></script>
+
+<style>
+body { color: maroon; min-width: 520px; }
+.enspoly { width: 4em; float: left; padding: 2em; }
+.p3 .p4 .p5 .p6 { list-style-type: none; background-color: rbga(255,255,255,0.99);}
+#triangles, #quadris, #pentas, #hexas {width: 8em; border: 4px inset maroon; border-radius: 8em; background: papayaWhip;}
+.polygone { width: 40px; height: 40px; margin: 0 1em 1em 0; }
+.ui-sortable-placeholder { background: white; border: 1px dotted black; visibility: visible !important; height: 2em !important; }
+#affres { width: 200px; height: 10px; }
+#affres div {background: darkRed; }
+</style>
+ 
+  
+</head>
+
+
+<body>
+<script type="text/coffeescript">
+###
+this source is free, under MIT license
+(http://opensource.org/licenses/MIT)
+authors: Alain Busser, Florian Tobé
+###
+nearTo = (xA,yA,xB,yB) ->
+	xu=xA-xB
+	yu=yA-yB
+	normeC=xu*xu+yu*yu
+	normeC<400
+$ ->
+#fabrication des polygones
+	for n in [1..20]
+		[xp,yp]=[0,0]
+		Nsides=3+Math.floor Math.random()*4
+		$("#stock").append "<div id='pol"+n+"' class='polygone'><canvas width='40' height='40'  id='c"+n+"'></canvas></div>"
+		$("#pol"+n).addClass "p"+Nsides
+		ctx=$("#c"+n)[0].getContext '2d'
+		ctx.strokeStyle='black'
+		ctx.fillStyle='cyan'
+		ctx.beginPath()
+		xc=40*Math.random()
+		yc=40*Math.random()
+		ctx.moveTo xc, yc
+		[xn,yn]=[xc,yc]
+		for pas in [1...Nsides]
+			while nearTo xn,yn,xp,yp
+				xp=40*Math.random()
+				yp=40*Math.random()
+			ctx.lineTo xp, yp
+			[xn,yn]=[xp,yp]
+		ctx.lineTo xc, yc
+		ctx.fill()
+		ctx.stroke()
+#comptage des polygones
+	$( ".enspoly" ).sortable
+		connectWith: ".enspoly"
+		stop: (event, ui) ->
+			n=0
+			$("#triangles div").each (x) ->
+				if $(this).hasClass "p3" then n++
+			$("#quadris div").each (x) ->
+				if $(this).hasClass "p4" then n++
+			$("#pentas div").each (x) ->
+				if $(this).hasClass "p5" then n++
+			$("#hexas div").each (x) ->
+				if $(this).hasClass "p6" then n++
+			$("#affres").progressbar
+				value: 5*n
+			$(".affreslab").text(5*n+'%')
+	$( ".polygone" ).addClass( "ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" )
+	$( ".enspoly" ).disableSelection()	
+			
+</script>
+<h3>Ranger les polygones dans leurs maisons respectives</h3>
+<div class="enspoly" id="stock"></div>
+<div class="enspoly" id="triangles"><h4>triangles</h4></div>
+<div class="enspoly" id="quadris"><h4>quadrilatères</h4></div>
+<div class="enspoly" id="pentas"><h4>pentagones</h4></div>
+<div class="enspoly" id="hexas"><h4>hexagones</h4></div>
+<p>
+Progression:
+<div id="affres"></div>
+<div class="affreslab"></div></p>
+</body>
+</html>

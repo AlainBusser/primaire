@@ -1,0 +1,104 @@
+<html lang="fr">
+  <head>
+    <title>unlucky five</title>
+    <meta charset="utf-8">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/coffee-script/1.3.1/coffee-script.min.js"></script>
+    <style>
+		.parchemin { padding: 0.5em; border: 1px solid brown; background-color: lightyellow; border-radius: 0.3em; box-shadow: 0.1em 0.04em 0.1em rgba(100,100,100,0.5); color: brown; } 
+		.pc { font-size: 160%; background-color: white; padding: 0.3em; border: 1px solid black; border-radius: 0.3em; text-shadow: 0.1em 0.04em 0.1em rgba(100,100,100,0.5); }
+		.case { font-size: 320%; width: 1em; height: 1.5em; background-color: lightYellow; border: 1px solid black; text-align: center; }
+		.carte { border-radius: 0.2em; box-shadow: 0.3em 0.2em 0.3em rgba(100,100,100,.5); }
+		.cableV { font-size: 320%; width: 0.2em; height: 1.5em; background-color: brown; margin: -0.06em -0.2em -0.1em 0.4em; box-shadow: 0.15em 0.1em 0.15em  rgba(100,100,100,.5);  border: 2px outset brown; }
+		.cableH { font-size: 320%; width: 1.5em; height: 0.2em; background-color: brown; margin: 0em -0.1em 0em -0.06em; box-shadow: 0.15em 0.1em 0.15em  rgba(100,100,100,.5); border: 2px outset brown; }
+		#lac { background-color: lightCyan; padding: 2em; border-radius: 1em; border: 1px solid cyan; }
+    </style>
+  </head>
+  <body>
+<h1>L'étang des 5 singes</h1>
+<h2>Les 5 singes de l'étang des 5 singes ont mélangé les 5 cartes 
+de l'étang des 5 singes</h2>
+
+<h3>Sauras-tu les remettre en place, dans l'ordre suivant ?</h3>
+<p>Voici la carte des 5 cartes des 5 singes :</p>
+<table class="parchemin">
+	<tr><td class="pc">1</td><td></td><td class="pc">5</td></tr>
+	<tr><td class="pc">2</td><td class="pc">3</td><td class="pc">4</td></tr>
+</table>
+
+<h2>Intrépide étranger, voici l'étang des Cinq Singes:</h2>
+	
+	
+	  <table id="lac">
+		  <tr>
+			  <td class="case carte" id="c1">5</td>
+			  <td><div class="cableH"></div></td>
+			  <td class="case" id="c0"></td>
+			  <td><div class="cableH"></div></td>
+			  <td class="case carte" id="c5">1</td>
+		</tr>
+		  <tr>
+			  <td><div class="cableV"></div></td>
+			  <td></td>
+			  <td><div class="cableV"></div></td>
+			  <td></td>
+			  <td><div class="cableV"></div></td>
+		</tr>
+		<tr>
+			<td class="case carte" id="c2">4</td>
+			  <td><div class="cableH"></div></td>
+			<td class="case carte" id="c3">3</td>
+			  <td><div class="cableH"></div></td>
+			<td class="case carte" id="c4">2</td>
+		</tr>
+	  </table>
+	  
+	  <h3>Les cartes bien placées sont actuellement les cartes : <span class="perm">4</span></h3>
+	  
+<script type="text/coffeescript">
+# auteurs: Alain Busser, Florian Tobé
+# date: 2016
+# licence: MIT
+
+Array::evenshuffle ?= ->
+	if @length > 1
+		for i in [@length-1..1]
+			j = Math.floor Math.random() * i
+			if j > 1
+				k = Math.floor Math.random() * j
+				[@[i], @[j], @[k]] = [@[j], @[k], @[i]]
+	this
+
+places = [1,3,5,2,4].evenshuffle()
+#places = [1,5,2,3,4]												# le sorcier mélange les cartes
+	
+voisins = 																# le plan des ponts est un graphe
+	c0: ['c1','c3','c5']
+	c1: ['c0','c2']
+	c2: ['c1','c3']
+	c3: ['c2','c4','c0']
+	c4: ['c3','c5']
+	c5: ['c4','c0']
+	
+$ ->
+	c = 0																# la première carte est le numéro 0
+	$(".carte").each ->													# chaque carte à son tour 
+		$(this).text places[c]											# est mise sur sa case
+		c++
+	ok = (n for n in [1..5] when $("#c#{n}")[0].id[1]==$("#c#{n}").text())							# liste des cartes déjà rangées
+	$(".perm").text ok																				# on affiche la liste en bas
+		
+	$(".case").on "click", ->																		# on a choisi une case à jouer
+		if false in ($("##{c}").hasClass "carte" for c in voisins[$(this)[0].id])					# elle est jouable si elle a un voisin sans carte
+			destination = (c for c in voisins[$(this)[0].id] when not $("##{c}").hasClass 'carte')	# ce voisin est la destination où va aller la carte choisie
+			$("##{destination}").addClass('carte').text $(this).text()								# on ajoute une carte et on copie le texte sur cette carte
+			$(this).removeClass('carte').text ''													# on enlève la carte et le texte de la case choisie
+			ok = (n for n in [1..5] when $("#c#{n}")[0].id[1]==$("#c#{n}").text())					# liste des cartes déjà rangées
+			$(".perm").text ok																		# affichée en bas
+			if ok.length is 5																		# si 7 cartes sont rangées, on a fini
+				alert "~~~ Chaque singe a sa carte ~~~\nOn est tranquille pour un moment\n~~~ Les singes dorment ~~~"
+
+</script>
+ 
+  </body>
+</html>

@@ -1,0 +1,62 @@
+<html lang="fr">
+  <head>
+    <title>Lewthwaite</title>
+    <meta charset="utf-8">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/coffee-script/1.3.1/coffee-script.min.js"></script>
+    <style>
+		table { border: 2px outset brown; }
+		td { font-size: 320%; width: 1.2em; height: 1em; border: 1px solid brown; }
+    </style>
+  </head>
+  <body>
+	  <h1>Jeu de Lewthwaite</h1>
+	  <p>Comme il y a 24 pions répartis sur 25 cases, à chaque moment, il 
+	  n'y a qu'une case vide. Jouer consiste à y glisser un de ses pions. 
+	  Le premier qui ne peut plus bouger a perdu.</p>
+	  
+<table>
+	<tr>
+		<td>♟</td><td>♙</td><td>♟</td><td>♙</td><td>♟</td>
+	</tr>
+	<tr>
+		<td>♙</td><td>♟</td><td>♙</td><td>♟</td><td>♙</td>
+	</tr>
+	<tr>
+		<td>♟</td><td>♙</td><td></td><td>♙</td><td>♟</td>
+	</tr>
+	<tr>
+		<td>♙</td><td>♟</td><td>♙</td><td>♟</td><td>♙</td>
+	</tr>
+	<tr>
+		<td>♟</td><td>♙</td><td>♟</td><td>♙</td><td>♟</td>
+	</tr>
+</table>
+
+<h3>C'est aux <span id="joueur">blancs</span> de jouer.</h3>
+	  
+<script type="text/coffeescript">
+joueur = 0
+joueurs = ['blancs','noirs']
+
+$ ->
+	$("td").on "click", ->
+		x = $(this).index()
+		y = $(this).parent().index()
+		[xt,yt] = [-1,-1]
+		$("td").each ->								# pas le même this que dans la boucle principale
+			if $(this).text() is ''
+				xt = $(this).index()
+				yt = $(this).parent().index()
+		if (joueur is 0 and $(this).text() is '♙') or (joueur is 1 and $(this).text() is '♟')
+			possible = false
+			if (x-xt)*(x-xt)+(y-yt)*(y-yt) is 1
+				$("td:empty").text $(this).text()
+				$(this).text ''
+				joueur = 1-joueur
+				$('#joueur').text joueurs[joueur]
+
+</script>
+
+  </body>
+</html>

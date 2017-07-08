@@ -1,0 +1,122 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/coffee-script/1.7.1/coffee-script.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script> 
+
+<style>
+table { border-spacing: 0; border: 1px solid black; }
+th, td { border: 1px solid black; width: 5em; }
+th { background-color: AntiqueWhite; }
+td { height: 11em; background-color: HoneyDew; padding: 3px; }
+.ui-widget-content { background-color: rgba(0,0,0,0); margin: 30px; width: 80%; height: 36%; }
+.colonne { display: block; margin: 2px; padding: .2em; }
+#stock li { margin-left: -0.6em; }
+#stock { padding: 0.4em; padding-left: 2em; width: 32em; height: 2em; }
+.jeton { list-style: none; display: inline-block; margin: -0.16em;  border: none; font-size: 200%; background-color: rgba(0,0,0,0); color: sandyBrown; text-shadow: -0.03em 0.02em 0.04em rgba(63,63,63,0.8); }
+</style>
+ 
+  
+</head>
+
+
+<body>
+<script type="text/coffeescript">
+# caractères de jetons: ◉ ▢ ●
+[XM,M,C,X,I] = [0,0,0,0,0]
+total = 0								# vivent les variables globales !
+$ ->
+	$( ".colonne" ).addClass( "ui-widget-content" )
+	$(".colonne").sortable
+		connectWith: ".colonne"
+		tolerance: "pointer"
+		stop: (event, ui) ->
+			total = 0
+			for exposant in [0..4]
+				total += $(".puissance#{exposant}").children().length * Math.pow(10,exposant)
+			$("#sortie").text total
+
+			
+</script>
+<table id="abaque">
+	<tr>
+		<th>dizaines de milliers</th>
+		<th>milliers</th>
+		<th>centaines</th>
+		<th>dizaines</th>
+		<th>unités</th>
+	</tr>
+	<tr>
+		<td><div class="colonne puissance4"></div><div class="colonne puissance4"></div></td>
+		<td><div class="colonne puissance3"></div><div class="colonne puissance3"></div></td>
+		<td><div class="colonne puissance2"></div><div class="colonne puissance2"></div></td>
+		<td><div class="colonne puissance1"></div><div class="colonne puissance1"></div></td>
+		<td><div class="colonne puissance0"></div><div class="colonne puissance0"></div></td>
+	</tr>
+</table>
+
+
+<div class="colonne" id="stock">
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	<li class="jeton connectedSortable">●</li>
+	
+</div>
+<p>Le nombre représenté est <span id="sortie">0</span>.</p>
+
+</body>
+</html>
