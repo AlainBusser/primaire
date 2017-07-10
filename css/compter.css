@@ -1,0 +1,14 @@
+body { color: black; min-width: 520px; }
+.ensbilles {display: inline; margin: 0; padding: 0;  width: 4em; padding: 2em; }
+.ensbilles li {list-style: none; display: inline-block; margin: 10px; }
+.bleu{ display: inline-block; list-style-type: none; background-color: rbga(255,255,255,0.99);}
+#sac {float: left; width: auto; border: 4px outset maroon; border-radius: 4em; background: Peru;}
+.bille { display: inline; width: 40px; height: 40px; margin: 0 1em 1em 0; }
+#cadre { width: 10em; height: 0.2em; border: 2px inset blue;}
+#progress { width: 0%; height: 100%; background-color: cyan; }
+#suivant { font-size: 160%; visibility: false; }
+#JeanPierre { font-size: 200%; background: lightGray; border: 3px outline gray; border-radius: 0.2em; }
+.cache { visibility: hidden; }
+h3 { font-size: 200%; }
+.ui-sortable-placeholder { display: inline; background: lightGreen; border: 1px dotted black; border-radius: 1em; visibility: visible !important; height: 2em !important; }
+ 
