@@ -1,0 +1,8 @@
+		table { border: 3px ridge brown; background-color: lightgray; padding: 1em; }
+		.s { width: 2em; height: 2.2em; border: 1px solid black; border-radius: 50%; background-color: white; }
+		.b { background-color: blue; }
+		.r { background-color: red; }
+		.rouge { color: red; }
+		.bleu { color: blue; }
+		.h { width: 4em; height: 0.4em; margin-left: -0.2em; margin-right: -0.2em;}
+		.v { width: 0.4em; height: 4em; margin-top: -0.2em; margin-bottom: -0.2em; margin-left: 0.8em;}

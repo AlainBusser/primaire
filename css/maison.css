@@ -1,0 +1,25 @@
+body { color: maroon; min-width: 520px; }
+.enspoly { width: 4em; float: left; padding: 2em; }
+.p3 .p4 .p5 .p6 { 
+	list-style-type: none; 
+	background-color: rbga(255,255,255,0.99);
+	}
+#triangles, #quadris, #pentas, #hexas {
+	width: 8em; 
+	border: 4px inset maroon; 
+	border-radius: 8em; 
+	background: papayaWhip;
+	}
+.polygone { 
+	width: 40px; 
+	height: 40px; 
+	margin: 0 1em 1em 0; 
+	}
+.ui-sortable-placeholder { 
+	background: white; 
+	border: 1px dotted black; 
+	visibility: visible !important; 
+	height: 2em !important; 
+	}
+#affres { width: 200px; height: 10px; }
+#affres div {background: darkRed; }

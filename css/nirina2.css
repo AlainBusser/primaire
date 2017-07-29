@@ -1,0 +1,5 @@
+		table { border: 2px outset brown; border-collapse: collapse; }
+		td { font-size: 200%; width: 1.5em; min-width: 1.5em; height: 1.5em; min-height: 1.5em;border: 1px solid brown; text-shadow: 0.2em 0.1em 0.05em rgba(0,0,0,0.3); }
+		.noire { background: brown; }
+		.blanche { background: ivory; }
+		footer { font-size: 64%; font-style: italic; text-align: right; }

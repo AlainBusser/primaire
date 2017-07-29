@@ -1,0 +1,7 @@
+		.parchemin { padding: 0.5em; border: 1px solid brown; background-color: lightyellow; border-radius: 0.3em; box-shadow: 0.1em 0.04em 0.1em rgba(100,100,100,0.5); color: brown; } 
+		.pc { font-size: 160%; background-color: white; padding: 0.3em; border: 1px solid black; border-radius: 0.3em; text-shadow: 0.1em 0.04em 0.1em rgba(100,100,100,0.5); }
+		.case { font-size: 320%; width: 1em; height: 1.5em; background-color: lightYellow; border: 1px solid black; text-align: center; }
+		.carte { border-radius: 0.2em; box-shadow: 0.3em 0.2em 0.3em rgba(100,100,100,.5); }
+		.cableV { font-size: 320%; width: 0.2em; height: 1.5em; background-color: brown; margin: -0.06em -0.2em -0.1em 0.4em; box-shadow: 0.15em 0.1em 0.15em  rgba(100,100,100,.5);  border: 2px outset brown; }
+		.cableH { font-size: 320%; width: 1.5em; height: 0.2em; background-color: brown; margin: 0em -0.1em 0em -0.06em; box-shadow: 0.15em 0.1em 0.15em  rgba(100,100,100,.5); border: 2px outset brown; }
+		#lac { background-color: lightCyan; padding: 2em; border-radius: 1em; border: 1px solid cyan; }

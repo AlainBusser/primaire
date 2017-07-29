@@ -1,0 +1,28 @@
+ 
+table { border-spacing: 0; border: 1px solid black; }
+th, td { border: 1px solid black; width: 5em; }
+th { background-color: AntiqueWhite; }
+td { height: 11em; background-color: HoneyDew; padding: 3px; }
+.ui-widget-content { 
+	background-color: rgba(0,0,0,0); 
+	margin: 30px; width: 80%; 
+	height: 36%; 
+	}
+.colonne { display: block; margin: 2px; padding: .2em; }
+#stock li { margin-left: -0.6em; }
+#stock { 
+	padding: 0.4em; 
+	padding-left: 2em; 
+	width: 32em; 
+	height: 2em; 
+	}
+.jeton { 
+	list-style: none; 
+	display: inline-block; 
+	margin: -0.16em;  
+	border: none; 
+	font-size: 200%; 
+	background-color: rgba(0,0,0,0); 
+	color: sandyBrown; 
+	text-shadow: -0.03em 0.02em 0.04em rgba(63,63,63,0.8); 
+	}

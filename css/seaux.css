@@ -1,0 +1,5 @@
+.seau { position: relative; display: inline-block; border-style: none solid solid solid; width: 6em; height: 20em; margin: 2em;}
+.eau { position: absolute; bottom: 0; background-color: Aqua; width: 6em; height: 0%; }
+.selected {background-color: lightGray; }
+.ui-menu-item { background: lightGreen; }
+#algo { background: lightYellow; font-family: "monospace"; }
