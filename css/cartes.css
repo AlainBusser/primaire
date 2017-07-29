@@ -1,0 +1,33 @@
+     body { 
+     color:black; 
+     font-family:Helvetica, sans-serif; 
+     margin:50px; 
+     padding:0 
+     }
+     h3 { color: darkRed; }
+     
+     table { border-spacing: 0; border: 1px solid black; }
+th, td { border: 1px solid black; width: 5em; }
+th { background-color: AntiqueWhite; }
+td { height: 11em; background-color: HoneyDew; padding-left: 0.2em; }
+
+     
+     ul li, td li { 
+     list-style-type:none; 
+     display: inline-block;
+     width: 1.02em; 
+     margin: 0.1em; 
+     text-align: center; 
+     font-size: 320%; 
+     background-color: lightYellow; 
+     border: 1px solid black;
+     border-radius: 0.3em; 
+     box-shadow: 0.2em 0.15em 0.1em rgba(0,0,0,0.3);
+     }
+     .ui-sortable-placeholder {  
+     width: 1.5em; 
+     background-color: lightCyan; 
+     border : inset gray 3px;  
+     border-radius: 0.8em; 
+     }
+     #soluce { display: none; } 
