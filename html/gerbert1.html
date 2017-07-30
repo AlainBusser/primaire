@@ -1,0 +1,79 @@
+<!doctype html>
+ 
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abaque de Gerbert</title>
+  <link rel="stylesheet" href="../css/cartes.css" />
+  <script src="../javascript/coffee-script.js"></script>
+  <script src="../javascript/jquery.min.js"></script>
+  <script src="../javascript/jquery-ui.min.js"></script>
+  <script src="../javascript/jquery.ui.touch-punch.min.js"></script>
+
+</head>
+
+
+<body>
+	<h3>Abaque de Gerbert</h3>
+	<table id="abaque">
+		<tr><th>milliers</th><th>centaines</th><th>dizaines</th><th>unités</th></tr>
+		<tr><td>
+			<div class='sortable c1000'></div>
+			<div class='sortable c1000'></div>
+			<div class='sortable c1000'></div>
+			<div class='sortable c1000'></div>
+		</td>
+		<td>
+			<div class='sortable c100'></div>
+			<div class='sortable c100'></div>
+			<div class='sortable c100'></div>
+			<div class='sortable c100'></div>
+		</td>
+		<td>
+			<div class='sortable c10'></div>
+			<div class='sortable c10'></div>
+			<div class='sortable c10'></div>
+			<div class='sortable c10'></div>
+		</td>
+		<td>
+			<div class='sortable c1'></div>
+			<div class='sortable c1'></div>
+			<div class='sortable c1'></div>
+			<div class='sortable c1'></div>
+		</td></tr>
+	</table>
+<script type="text/coffeescript">
+###
+this source is free, under MIT license
+(http://opensource.org/licenses/MIT)
+author: Alain Busser
+###
+
+$ ->
+	$( ".sortable" ).addClass( "ui-widget-content" )	
+	for n in [1..9]
+		for k in [1..5]
+			$("#reserve").append "<li class='ui-state-default'>#{n}</li>"
+	$( ".sortable" ).sortable
+		connectWith: ".sortable, #reserve"
+		placeholder: "ui-sortable-placeholder"
+		forcePlaceholderSize: true
+		stop: () ->
+			n1 = 0
+			n1 += parseInt(x.innerHTML) for x in $(".c1 li")
+			n1 += 10*parseInt(x.innerHTML) for x in $(".c10 li")
+			n1 += 100*parseInt(x.innerHTML) for x in $(".c100 li")
+			n1 += 1000*parseInt(x.innerHTML) for x in $(".c1000 li")
+			$("#sortien1").text n1
+
+	$( ".sortable" ).disableSelection()
+</script>
+<div>
+  <h3></h3>
+  <ul class="sortable" id="reserve"></ul> 
+</div>
+<p>Le nombre total est pour l'instant : <span id="sortien1"></span></p>
+
+</body>
+</html>

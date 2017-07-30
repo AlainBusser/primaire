@@ -7,7 +7,6 @@
   <title>Abaque de Gerbert</title>
   <link rel="stylesheet" href="../css/cartes.css" />
   <script src="../javascript/coffee-script.js"></script>
-  <script src="../javascript/underscore-min.js"></script>
   <script src="../javascript/jquery.min.js"></script>
   <script src="../javascript/jquery-ui.min.js"></script>
   <script src="../javascript/jquery.ui.touch-punch.min.js"></script>
@@ -31,10 +30,6 @@ this source is free, under MIT license
 author: Alain Busser
 ###
 
-arraysEqual = (arr1, arr2) ->
-	diff=0
-	diff++ for element, index in arr1 when element.toString() is arr2[index].toString()
-	return diff
 $ ->
 	for n in [1..9]
 		for k in [1..5]
@@ -55,11 +50,7 @@ $ ->
 </script>
 <div>
   <h3></h3>
-  <ul class="sortable" id="reserve" class="nombres_desordre">
-  
-<!-- c'est ici que le script mettra les li à classer, et tutoccuppepluderieng -->   
-    
-  </ul> 
+  <ul class="sortable" id="reserve"></ul> 
 </div>
 <p>Le nombre total est pour l'instant : <span id="sortien1"></span></p>
 

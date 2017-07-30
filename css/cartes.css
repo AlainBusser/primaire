@@ -9,9 +9,11 @@
      table { border-spacing: 0; border: 1px solid black; }
 th, td { border: 1px solid black; width: 5em; }
 th { background-color: AntiqueWhite; }
-td { height: 11em; background-color: HoneyDew; padding-left: 0.2em; }
+td { height: 5em; background-color: HoneyDew; padding-left: 0.2em; }
 
-     
+.c1000, .c100, .c10, .c1 { height: 4.5em; 
+	}
+
      ul li, td li { 
      list-style-type:none; 
      display: inline-block;
@@ -22,12 +24,11 @@ td { height: 11em; background-color: HoneyDew; padding-left: 0.2em; }
      background-color: lightYellow; 
      border: 1px solid black;
      border-radius: 0.3em; 
-     box-shadow: 0.2em 0.15em 0.1em rgba(0,0,0,0.3);
+     box-shadow: 0.2em 0.15em 0.1em rgba(0,0,0,0.2);
      }
      .ui-sortable-placeholder {  
-     width: 1.5em; 
+     width: 1.2em; 
      background-color: lightCyan; 
-     border : inset gray 3px;  
+     border : dotted gray 3px;  
      border-radius: 0.8em; 
      }
-     #soluce { display: none; } 
