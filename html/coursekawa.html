@@ -16,12 +16,12 @@ col = { "A": "blue", "B": "red" };
 function plus(pas) {
     if (nombre < nbfinal) {
         nombre += pas;
-        if (nombre >= nbfinal) { alert("Le joueur "+joueur+" est recruté; relancer le navigateur pour une nouvelle partie"); };
+        if (nombre >= nbfinal) { alert("Le joueur "+joueur+" a gagné; relancer le navigateur pour une nouvelle partie"); };
         document.getElementById("nb").innerHTML = nombre;
         joueur = autre[joueur];
         document.getElementById("player").innerHTML = joueur.fontcolor(col[autre[joueur]]);
         var texte = "";
-        for (var n=0; n<pas; n++) { texte  += "☕"; } 
+        for (var n=0; n<pas; n++) { texte  += "•"; } 
         document.getElementById("fleurs").innerHTML += texte.fontcolor(col[joueur]);
     }
 }
@@ -32,19 +32,19 @@ function plus(pas) {
     #narr, #narr2 { color: darkGreen; }
     button { font-size: 320%; }
     h2 { font-family: monospace; font-weight: normal}
-    h5 { font-size: 320%; text-shadow: 0.2em 0.1em 0.3em rgba(0,0,0,0.3);}
+    #fleurs { word-wrap: break-word; font-size: 400%; text-shadow: 0.2em 0.1em 0.3em rgba(0,0,0,0.3);
+		border: 3px outset gray; min-height: 1em; background-color: lightgreen; }
 </style>
 </head>
 <body onLoad='Raz();'>
-<h1>Le jeu du café</h1>
-<h2>Vous postulez pour un emploi de garçon de café, et vous devez, 
-avec un concurrent, poser des tasses sur la table de réception. Mais vous 
-n'arrivez pas à porter plus de trois tasses à la fois, sans renverser. Il y a actuellement <span id="nb">0</span> tasses sur la table. Le but est d'arriver à <span id="narr"> tasses</span>. 
-Chaque joueur ajoute 1, 2 ou 3 tasses sur la table; le premier qui remplit la table (au moins <span id="narr2"> 
-</span> tasses sur la table) est engagé. C'est au joueur <span id="player">A</span> de jouer.</h2>
-<button id="p1" onClick="plus(1);">+ ☕</button>
-<button id="p2" onClick="plus(2);">+ ☕☕</button>
-<button id="p3" onClick="plus(3);">+ ☕☕☕</button>
-<h5 id="fleurs"></h5>
+<h1>Le jeu de la poursuite</h1>
+<h2>Chaque joueur, à son tour, pose 1, 2 ou 3 billes sur la table. 
+Il y a actuellement <span id="nb">0</span> billes sur la table. Le but est d'arriver à <span id="narr"> billes</span>. 
+Le premier qui remplit la table (au moins <span id="narr2"> 
+</span> billes sur la table) a gagné. C'est au joueur <span id="player">A</span> de jouer.</h2>
+<button id="p1" onClick="plus(1);">+ •</button>
+<button id="p2" onClick="plus(2);">+ ••</button>
+<button id="p3" onClick="plus(3);">+ •••</button>
+<div id="fleurs"></div>
 </body>
 </html>
