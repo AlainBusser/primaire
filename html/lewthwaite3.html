@@ -1,0 +1,76 @@
+<html lang="fr">
+  <head>
+    <title>Lewthwaite</title>
+    <meta charset="utf-8">
+  <link rel="stylesheet" href="../css/mangrove2.css" />
+  <script src="../javascript/coffee-script.js"></script>
+  <script src="../javascript/jquery.min.js"></script>
+  </head>
+  <body>
+	  <h1>La mangrove de Lewthwaite</h1>
+	  <p>Au milieu de ce marais, se trouve une mangrove 
+	  (ci-dessous), qui forme une île carrée (5×5). Deux 
+	  rivières vont du marais vers lui-même en une seule case 
+	  (en haut à gauche et en bas à droite). 8 petites rivières 
+	  vont du marais vers lui-même en deux cases. Deux joueurs 
+	  veulent créer une rivière allant du marais vers lui-même, 
+	  et qui soit d'au moins 3 cases. Il s'agit
+	  <ul>
+		  <li>de l'abeille <div id="pres1" class="A"></div></li>
+		  <li>de la chenille <div id="pres2" class="C"></div></li>
+	  </ul>
+	  Pour jouer, chacun choisit une case voisine de l'îlot central 
+	  et la glisse vers l'îlot central. Le premier joueur qui a 
+	  réussi à compléter une rivière allant du bord jusqu'au bord, 
+	  a gagné.
+	   </p>
+	  
+<table>
+	<tr>
+		<td class="B impair"></td><td class="N pair"></td><td class="B impair"></td><td class="N pair"></td><td class="B impair"></td>
+	</tr>
+	<tr>
+		<td class="N pair"></td><td class="B impair"></td><td class="N pair"></td><td class="B impair"></td><td class="N pair"></td>
+	</tr>
+	<tr>
+		<td class="B impair"></td><td class="N pair"></td><td class="impair"></td><td class="N pair"></td><td class="B impair"></td>
+	</tr>
+	<tr>
+		<td class="N pair"></td><td class="B impair"></td><td class="N pair"></td><td class="B impair"></td><td class="N pair"></td>
+	</tr>
+	<tr>
+		<td class="B impair"></td><td class="N pair"></td><td class="B impair"></td><td class="N pair"></td><td class="B impair"></td>
+	</tr>
+</table>
+
+
+<h3>C'est au joueur <span id="joueur">abeille</span> de jouer <div id="portrait" class="A"></div></h3>
+
+	  
+<script type="text/coffeescript">
+joueur = 0
+joueurs = ['abeille','chenille']
+
+$ ->
+	$("td").on "click", ->
+		x = $(this).index()
+		y = $(this).parent().index()
+		[xt,yt] = [-1,-1]												# coordonnées putatives de t (îlot)
+		$("td").not(".B").not(".N").each ->								# t est la seule case qui ne soit ni B ni N
+			xt = $(this).index()										# abscisse = numéro de la case dans la ligne
+			yt = $(this).parent().index()								# ordonnée = numéro de la ligne dans le tableau
+		if (x-xt)*(x-xt)+(y-yt)*(y-yt) is 1								# seule une case voisine de t peut être jouée
+			if $(this).hasClass 'B'										# si on a joué une B
+				$("td").not('.B').not('N').addClass 'B'					# t devient une B
+				$(this).removeClass 'B'									# et la case jouée devient t
+			if $(this).hasClass 'N'										# si on a joué une N
+				$("td").not('.B').not('N').addClass 'N'					# t devient une N
+				$(this).removeClass 'N'									# et la case jouée perd son N
+			joueur = 1-joueur											# on change de joueur
+			$("#portrait").toggleClass 'C'								# on change de visage de joueur
+			$('#joueur').text joueurs[joueur]							# on affiche le nom du nouveau joueur
+
+</script>
+
+  </body>
+</html>
