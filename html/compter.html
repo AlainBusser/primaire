@@ -10,7 +10,8 @@
   <script src="../javascript/coffee-script.js"></script>
   <script src="../javascript/jquery.min.js"></script>
   <script src="../javascript/jquery-ui.min.js"></script>
-  <script src="../javascript/jquery-ui-touch-punch/master/jquery.ui.touch-punch.min.js"></script>
+  <script src="../javascript/jquery.ui.touch-punch.min.js"></script>
+<audio id="bravo" src="../media/applause2.mp3"></audio>
 
   
 </head>
@@ -18,7 +19,6 @@
 
 <body>
 <!--script src="jquery.draggableTouch.js"></script-->
-
 <script type="text/coffeescript">
 ###
 this source is free, under MIT license
@@ -89,6 +89,7 @@ $ ->
 		possible = false
 		if nb is num
 			message = "Oui, gagné !!!"
+			$("#bravo")[0].play()
 			reussis++
 			reussis = Math.min reussis, 20
 			$("#progress").css "width", (reussis*5)+'%'
