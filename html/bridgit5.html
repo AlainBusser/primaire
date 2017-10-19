@@ -4,8 +4,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>bridg-it 2×2</title>
-  <link rel="stylesheet" href="../css/elfesBig.css" />
+  <title>bridg-it 3×3</title>
+  <link rel="stylesheet" href="../css/elfes.css" />
   <script src="http://cdnjs.cloudflare.com/ajax/libs/coffee-script/1.4.0/coffee-script.min.js"></script>
   <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
 
@@ -41,7 +41,7 @@ de jouer <div id="portraitJ" class="elfeR"></div></h3>
 
 <script type="text/coffeescript">
 
-N = 3
+N = 5
 joueur = 0
 joueurs = ["rouges","bleus"]
 jc = ["red","blue"]
@@ -90,10 +90,10 @@ $ ->
                                 $("#l#{y}").append "<td><div class='vert pair vierge' id='x#{x}y#{y}'></div></td>"
                             else
                                 $("#l#{y}").append "<td><div class='vert impair vierge' id='x#{x}y#{y}'></div></td>"
-    $("#x0y0").append '<img src="../media/elfeBleu.png" style="width: 80px; height: 80px;"></img>'
-    $("#x#{N-1}y#{N-1}").append '<img src="../media/elfeBleu.png" style="width: 80px; height: 80px;"></img>'
-    $("#x#{N-1}y0").append '<img src="../media/elfeRouge.png" style="width: 80px; height: 80px;"></img>'
-    $("#x0y#{N-1}").append '<img src="../media/elfeRouge.png" style="width: 80px; height: 80px;"></img>'
+    $("#x0y0").append '<img src="../media/elfeBleu.png" style="width: 60px; height: 60px;"></img>'
+    $("#x#{N-1}y#{N-1}").append '<img src="../media/elfeBleu.png" style="width: 60px; height: 60px;"></img>'
+    $("#x#{N-1}y0").append '<img src="../media/elfeRouge.png" style="width: 60px; height: 60px;"></img>'
+    $("#x0y#{N-1}").append '<img src="../media/elfeRouge.png" style="width: 60px; height: 60px;"></img>'
 
 
 

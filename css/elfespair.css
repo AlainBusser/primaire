@@ -1,0 +1,65 @@
+body { background-color: lightgreen; }
+h1 { color: darkred; font-family: cursive; text-align: center; 
+	text-shadow: 0.3em 0.1em 0.5em gray; 
+}
+table { border-collapse: collapse; border: none; }
+h4 { color: brown; text-shadow: 0.2em 0.1em 0.3em rgba(60,30,10,0.5); }
+table td { padding: 0; }
+.cbleu, .crouge, .bbleu, .brouge, .fbleu, .frouge, .vert {width: 64px; height: 64px; }
+.cbleu.impair { 
+		background-image: linear-gradient(45deg, red 0, darkred 10%, lightgreen 11%, lightgreen 39%, darkblue 40%, blue 50%, darkblue 60%, lightgreen 61%, lightgreen 89%, darkred 90%, red 100%);
+		}
+.cbleu.pair { 
+		background-image: linear-gradient(135deg, red 0, darkred 10%, lightgreen 11%, lightgreen 39%, darkblue 40%, blue 50%, darkblue 60%, lightgreen 61%, lightgreen 89%, darkred 90%, red 100%);
+		}
+.crouge.pair { 
+		background-image: linear-gradient(45deg, blue 0, darkblue 10%, lightgreen 11%, lightgreen 39%, darkred 40%, red 50%, darkred 60%, lightgreen 61%, lightgreen 89%, darkblue 90%, blue 100%);
+		}
+.crouge.impair { 
+		background-image: linear-gradient(135deg, blue 0, darkblue 10%, lightgreen 11%, lightgreen 39%, darkred 40%, red 50%, darkred 60%, lightgreen 61%, lightgreen 89%, darkblue 90%, blue 100%);
+		}
+.bbleu.pair { 
+		background-image: linear-gradient(135deg, blue 0, blue 50%, darkblue 60%, lightgreen 61%, lightgreen 89%, darkred 90%, red 100%);
+		}
+.bbleu.impair { 
+		background-image: linear-gradient(135deg, red 0, darkred 10%, lightgreen 11%, lightgreen 39%, darkblue 40%, blue 50%, blue 100%);
+		}
+.brouge.pair { 
+		background-image: linear-gradient(45deg, red 0, red 50%, darkred 60%, lightgreen 61%, lightgreen 89%, darkblue 90%, blue 100%);
+		}
+.brouge.impair { 
+		background-image: linear-gradient(45deg, blue 0, darkblue 10%, lightgreen 11%, lightgreen 39%, darkred 40%, red 50%, red 100%);
+		}
+.fbleu { background-color: blue; }
+.frouge { background-color: red; }
+.vert.pair { 
+		background-image: 
+		linear-gradient(45deg, red 0, darkred 9px, rgba(0,0,0,0) 10px, rgba(0,0,0,0) 80px, darkred 81px, red 90px), 
+		linear-gradient(135deg, blue 0, darkblue 9px, rgba(0,0,0,0) 10px, rgba(0,0,0,0) 80px, darkblue 81px, blue 90px),
+		radial-gradient(circle 32px at 32px 32px, green 0, lightgreen 100%);
+		}
+.vert.impair { 
+		background-image: 
+		linear-gradient(135deg, blue 0, darkblue 9px, rgba(0,0,0,0) 10px, rgba(0,0,0,0) 80px, darkblue 81px, blue 90px), 
+		linear-gradient(45deg, red 0, darkred 9px, rgba(0,0,0,0) 10px, rgba(0,0,0,0) 80px, darkred 81px, red 90px),
+		radial-gradient(circle 32px at 32px 32px, green 0, lightgreen 100%);
+		}
+
+#porB, #porR {
+	width: 120px; height: 120px; 
+}
+
+#portraitJ {
+	width: 120px;
+	height: 120px;
+	border: 3px ridge brown;
+}
+ 
+.elfeR { 
+	background-color: white;
+	background-image: url("../media/elfeRouge.png");
+	}
+.elfeB { 
+	background-color: white;
+	background-image: url("../media/elfeBleu.png");
+	}
