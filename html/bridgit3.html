@@ -1,116 +1,121 @@
-<!doctype html>
- 
-<html lang="fr">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>bridg-it 2×2</title>
-  <link rel="stylesheet" href="../css/elfesBig.css" />
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/coffee-script/1.4.0/coffee-script.min.js"></script>
-  <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
-
-<style>
-</style>
-
-  
-</head>
-
-
-<body>
-	
-<h1>Bridg-it chez les elfes</h1>
-
-<p>Dans la contrée des elfes colorés, vivent deux tribus d'elfes :
-<ul>
-	<li>Les elfes bleus, dont le territoire est partagé entre 
-	le nord-est et le sud-ouest de la forêt verte <div id="porB" class="elfeB"></div></li>
-	<li>Les elfes rouges, dont le territoire est partagé entre 
-	le nord-ouest et le sud-est de la forêt verte <div id="porB" class="elfeR"></div></li>
-</ul>
-Chaque tribu veut construire un chemin dans la forêt verte, allant 
-d'une partie de son territoire à l'autre.
-</p>
-<p>Pour construire un tronçon de chemin, il faut toucher un 
-arbre de la forêt. Qui arrivera à faire un chemin et ainsi, 
-gagner le jeu ?</p>
-
-<table id="truchet"></table>
-
-<h3>C'est au tour des elfes <span style="color:red" id="joueur">rouges</span> 
-de jouer <div id="portraitJ" class="elfeR"></div></h3>
-
+<html>
+  <head>
+    <title>Bridg-it</title>
+    <meta charset="utf-8">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/coffee-script/1.3.1/coffee-script.min.js"></script>
+    <style>
+		table { border: 3px ridge brown; background-color: lightgray; padding: 1em; }
+		.s { width: 2em; height: 2.2em; border: 1px solid black; border-radius: 50%; background-color: white; }
+		.b { background-color: blue; }
+		.r { background-color: red; }
+		.rouge { color: red; }
+		.bleu { color: blue; }
+		.h { width: 4em; height: 0.4em; margin-left: -0.2em; margin-right: -0.2em;}
+		.v { width: 0.4em; height: 4em; margin-top: -0.2em; margin-bottom: -0.2em; margin-left: 0.8em;}
+    </style>
+  </head>
+  <body>
+	  <p>Ce jeu oppose deux joueurs (des opérateurs de télécommunication) :
+	  <ul>
+		  <li>L'opérateur <em>rouge.fr</em> souhaite établir un réseau de fibres optiques (en rouge) entre le bord gauche et le bord droit du circuit ci-dessous.</li>
+		  <li>L'opérateur <em>Bleu Telecom</em> souhaite empêcher son concurrent, en coupant les gaines (en bleu) destinées à poser les fibres optiques, de compléter ce réseau.</li>
+	  </ul>
+	  Chacun son tour, un joueur, ou bien rajoute une fibre optique (transforme du bleu en rouge), ou bien enlève du bleu pour qu'il ne soit plus jouable. 
+	  Si, à un moment, il y a un circuit continu (sans interruption) rouge allant de gauche à droite, les rouges ont gagné. Si, 
+	  à la fin du jeu, il n'y a aucun tel circuit, les bleus ont gagné. Les rouges commencent.
+	  </p>
+	  <table>
+		  <tr>
+			  <td class="s"></td>
+			  <td><div class="h b"></div></td><td class="s"></td>
+			  <td><div class="h b"></div></td><td class="s"></td>
+			  <td><div class="h b"></div></td><td class="s"></td>
+			  <td><div class="h b"></div></td><td class="s"></td>
+			  <td><div class="h b"></div></td><td class="s"></td>
+		  </tr>
+		  <tr>
+			  <td><div class="v r"></div></td><td></td>
+			  <td><div class="v b"></div></td><td></td>
+			  <td><div class="v b"></div></td><td></td>
+			  <td><div class="v b"></div></td><td></td>
+			  <td><div class="v b"></div></td><td></td>
+			  <td><div class="v r"></div></td><td></td>
+		  </tr>
+		  <tr>
+			  <td class="s"></td>
+			  <td><div class="h b"></div></td><td class="s"></td>
+			  <td><div class="h b"></div></td><td class="s"></td>
+			  <td><div class="h b"></div></td><td class="s"></td>
+			  <td><div class="h b"></div></td><td class="s"></td>
+			  <td><div class="h b"></div></td><td class="s"></td>
+		  </tr>
+		  <tr>
+			  <td><div class="v r"></div></td><td></td>
+			  <td><div class="v b"></div></td><td></td>
+			  <td><div class="v b"></div></td><td></td>
+			  <td><div class="v b"></div></td><td></td>
+			  <td><div class="v b"></div></td><td></td>
+			  <td><div class="v r"></div></td><td></td>
+		  </tr>
+		  <tr>
+			  <td class="s"></td>
+			  <td><div class="h b"></div></td><td class="s"></td>
+			  <td><div class="h b"></div></td><td class="s"></td>
+			  <td><div class="h b"></div></td><td class="s"></td>
+			  <td><div class="h b"></div></td><td class="s"></td>
+			  <td><div class="h b"></div></td><td class="s"></td>
+		  </tr>
+		  <tr>
+			  <td><div class="v r"></div></td><td></td>
+			  <td><div class="v b"></div></td><td></td>
+			  <td><div class="v b"></div></td><td></td>
+			  <td><div class="v b"></div></td><td></td>
+			  <td><div class="v b"></div></td><td></td>
+			  <td><div class="v r"></div></td><td></td>
+		  </tr>
+		  <tr>
+			  <td class="s"></td>
+			  <td><div class="h b"></div></td><td class="s"></td>
+			  <td><div class="h b"></div></td><td class="s"></td>
+			  <td><div class="h b"></div></td><td class="s"></td>
+			  <td><div class="h b"></div></td><td class="s"></td>
+			  <td><div class="h b"></div></td><td class="s"></td>
+		  </tr>
+		  <tr>
+			  <td><div class="v r"></div></td><td></td>
+			  <td><div class="v b"></div></td><td></td>
+			  <td><div class="v b"></div></td><td></td>
+			  <td><div class="v b"></div></td><td></td>
+			  <td><div class="v b"></div></td><td></td>
+			  <td><div class="v r"></div></td><td></td>
+		  </tr>
+		  <tr>
+			  <td class="s"></td>
+			  <td><div class="h b"></div></td><td class="s"></td>
+			  <td><div class="h b"></div></td><td class="s"></td>
+			  <td><div class="h b"></div></td><td class="s"></td>
+			  <td><div class="h b"></div></td><td class="s"></td>
+			  <td><div class="h b"></div></td><td class="s"></td>
+		  </tr>
+	  </table>
+	  
+	  <h3>C'est au joueur <span id="joueur" class="rouge">Rouge</span> de jouer</h3>
+	  
 <script type="text/coffeescript">
-
-N = 3
-joueur = 0
-joueurs = ["rouges","bleus"]
-jc = ["red","blue"]
-petitN = Math.floor N/2
-grandN = Math.floor 3*N/2
-
-getCoords = (obj) ->
-    t = obj.id.split "y"
-    y = parseInt t[1]
-    t = t[0].split "x"
-    x = parseInt t[1]
-    [x,y]
-
-
+joueurs = ['bleu','rouge']
+joueur = 1
 $ ->
-    for y in [0...N]
-        $('#truchet').append "<tr id='l#{y}'></tr>"
-        for x in [0...N]
-            if x+y+1<=petitN
-                if x+y+1==petitN
-                    $("#l#{y}").append "<td><div class='bbleu pair' id='x#{x}y#{y}'></div></td>"
-                else
-                    $("#l#{y}").append "<td><div class='fbleu' id='x#{x}y#{y}'></div></td>"
-            else
-                if x+y>=grandN
-                    if x+y==grandN
-                        $("#l#{y}").append "<td><div class='bbleu impair' id='x#{x}y#{y}'></div></td>"
-                    else
-                        $("#l#{y}").append "<td><div class='fbleu' id='x#{x}y#{y}'></div></td>"
-                else
-                    if y-x-1>=petitN
-                        if y-x-1==petitN
-                            $("#l#{y}").append "<td><div class='brouge pair' id='x#{x}y#{y}'></div></td>"
-                        else
-                            $("#l#{y}").append "<td><div class='frouge' id='x#{x}y#{y}'></div></td>"
-                    else
-                        if x-y-1>=petitN
-                            if x-y-1==petitN
-                                $("#l#{y}").append "<td><div class='brouge impair' id='x#{x}y#{y}'></div></td>"
-                            else
-                                $("#l#{y}").append "<td><div class='frouge' id='x#{x}y#{y}'></div></td>"
-                        
-#dans le losange:
-                        else
-                            if x%2==y%2
-                                $("#l#{y}").append "<td><div class='vert pair vierge' id='x#{x}y#{y}'></div></td>"
-                            else
-                                $("#l#{y}").append "<td><div class='vert impair vierge' id='x#{x}y#{y}'></div></td>"
-    $("#x0y0").append '<img src="../media/elfeBleu.png" style="width: 80px; height: 80px;"></img>'
-    $("#x#{N-1}y#{N-1}").append '<img src="../media/elfeBleu.png" style="width: 80px; height: 80px;"></img>'
-    $("#x#{N-1}y0").append '<img src="../media/elfeRouge.png" style="width: 80px; height: 80px;"></img>'
-    $("#x0y#{N-1}").append '<img src="../media/elfeRouge.png" style="width: 80px; height: 80px;"></img>'
-
-
-
-
-    $(".vierge").on "click", (e,u) ->
-        [x,y] = getCoords $(this)[0]
-        if $(this).hasClass 'vert'
-            if joueur==0
-                $("#x#{x}y#{y}").removeClass("vert").addClass("crouge")
-            else
-                $("#x#{x}y#{y}").removeClass("vert").addClass("cbleu")
-            joueur = 1-joueur
-            $("#joueur").css("color",jc[joueur]).text joueurs[joueur]
-            $("#portraitJ").toggleClass "elfeB"
-
+	$(".h, .v").on "click", ->
+		if $(this).hasClass 'b'
+			$(this).removeClass('b')
+			if joueur is 1
+				$(this).addClass('r')
+			joueur = 1-joueur
+			$("#joueur").toggleClass("bleu").toggleClass("rouge")
+			$("#joueur").text joueurs[joueur]
 </script>
 
 
-</body>
+  </body>
 </html>

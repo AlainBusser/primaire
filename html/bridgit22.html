@@ -1,0 +1,116 @@
+<!doctype html>
+ 
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>bridg-it 2×2</title>
+  <link rel="stylesheet" href="../css/elfesBig.css" />
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/coffee-script/1.4.0/coffee-script.min.js"></script>
+  <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+
+<style>
+</style>
+
+  
+</head>
+
+
+<body>
+	
+<h1>Bridg-it chez les elfes</h1>
+
+<p>Dans la contrée des elfes colorés, vivent deux tribus d'elfes :
+<ul>
+	<li>Les elfes bleus, dont le territoire est partagé entre 
+	le nord-est et le sud-ouest de la forêt verte <div id="porB" class="elfeB"></div></li>
+	<li>Les elfes rouges, dont le territoire est partagé entre 
+	le nord-ouest et le sud-est de la forêt verte <div id="porB" class="elfeR"></div></li>
+</ul>
+Chaque tribu veut construire un chemin dans la forêt verte, allant 
+d'une partie de son territoire à l'autre.
+</p>
+<p>Pour construire un tronçon de chemin, il faut toucher un 
+arbre de la forêt. Qui arrivera à faire un chemin et ainsi, 
+gagner le jeu ?</p>
+
+<table id="truchet"></table>
+
+<h3>C'est au tour des elfes <span style="color:red" id="joueur">rouges</span> 
+de jouer <div id="portraitJ" class="elfeR"></div></h3>
+
+<script type="text/coffeescript">
+
+N = 3
+joueur = 0
+joueurs = ["rouges","bleus"]
+jc = ["red","blue"]
+petitN = Math.floor N/2
+grandN = Math.floor 3*N/2
+
+getCoords = (obj) ->
+    t = obj.id.split "y"
+    y = parseInt t[1]
+    t = t[0].split "x"
+    x = parseInt t[1]
+    [x,y]
+
+
+$ ->
+    for y in [0...N]
+        $('#truchet').append "<tr id='l#{y}'></tr>"
+        for x in [0...N]
+            if x+y+1<=petitN
+                if x+y+1==petitN
+                    $("#l#{y}").append "<td><div class='bbleu pair' id='x#{x}y#{y}'></div></td>"
+                else
+                    $("#l#{y}").append "<td><div class='fbleu' id='x#{x}y#{y}'></div></td>"
+            else
+                if x+y>=grandN
+                    if x+y==grandN
+                        $("#l#{y}").append "<td><div class='bbleu impair' id='x#{x}y#{y}'></div></td>"
+                    else
+                        $("#l#{y}").append "<td><div class='fbleu' id='x#{x}y#{y}'></div></td>"
+                else
+                    if y-x-1>=petitN
+                        if y-x-1==petitN
+                            $("#l#{y}").append "<td><div class='brouge pair' id='x#{x}y#{y}'></div></td>"
+                        else
+                            $("#l#{y}").append "<td><div class='frouge' id='x#{x}y#{y}'></div></td>"
+                    else
+                        if x-y-1>=petitN
+                            if x-y-1==petitN
+                                $("#l#{y}").append "<td><div class='brouge impair' id='x#{x}y#{y}'></div></td>"
+                            else
+                                $("#l#{y}").append "<td><div class='frouge' id='x#{x}y#{y}'></div></td>"
+                        
+#dans le losange:
+                        else
+                            if x%2==y%2
+                                $("#l#{y}").append "<td><div class='vert pair vierge' id='x#{x}y#{y}'></div></td>"
+                            else
+                                $("#l#{y}").append "<td><div class='vert impair vierge' id='x#{x}y#{y}'></div></td>"
+    $("#x0y0").append '<img src="../media/elfeBleu.png" style="width: 80px; height: 80px;"></img>'
+    $("#x#{N-1}y#{N-1}").append '<img src="../media/elfeBleu.png" style="width: 80px; height: 80px;"></img>'
+    $("#x#{N-1}y0").append '<img src="../media/elfeRouge.png" style="width: 80px; height: 80px;"></img>'
+    $("#x0y#{N-1}").append '<img src="../media/elfeRouge.png" style="width: 80px; height: 80px;"></img>'
+
+
+
+
+    $(".vierge").on "click", (e,u) ->
+        [x,y] = getCoords $(this)[0]
+        if $(this).hasClass 'vert'
+            if joueur==0
+                $("#x#{x}y#{y}").removeClass("vert").addClass("crouge")
+            else
+                $("#x#{x}y#{y}").removeClass("vert").addClass("cbleu")
+            joueur = 1-joueur
+            $("#joueur").css("color",jc[joueur]).text joueurs[joueur]
+            $("#portraitJ").toggleClass "elfeB"
+
+</script>
+
+
+</body>
+</html>
