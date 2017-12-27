@@ -2,7 +2,7 @@
 <html><head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Parkings 2×3</title>
+<title>Parkings 3×2</title>
   <link rel="stylesheet" href="../css/jquery-ui.css" />
   <link rel="stylesheet" href="../css/nirina1.css" />
   <script src="../javascript/coffee-script.js"></script>
@@ -15,63 +15,59 @@
 <script type="text/coffeescript">
 $ ->
     $(".pion, #regle").draggable()
-    $("#p5").css { left: -60, top: -120}
-    $("#p6").css { left: -180, top: -320}
-    $("#p7").css { left: -310, top: -520}
-    $("#p8").css { left: -430, top: -720}
-    $("#p1").css { left: -160, top: -720}
-    $("#p2").css { left: -280, top: -520}
-    $("#p3").css { left: -400, top: -320}
-    $("#p4").css { left: -530, top: -120}
+    $("#p4").css { left: -60, top: -120}
+    $("#p5").css { left: -180, top: -320}
+    $("#p6").css { left: -310, top: -520}
+    $("#p1").css { left: 170, top: -530}
+    $("#p2").css { left: 36, top: -330}
+    $("#p3").css { left: -90, top: -130}
                     
 </script>
 
 
-<h1>Le jeu des deux parkings en version 2×3</h1>
+<h1>Le jeu des deux parkings en version 3×2</h1>
 
 
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="480" height="680" version="1.1">
-<line x1="40" y1="40" x2="440" y2="40" stroke="brown" stroke-width="16"/>
-<line x1="40" y1="240" x2="440" y2="240" stroke="brown" stroke-width="16"/>
-<line x1="40" y1="440" x2="440" y2="440" stroke="brown" stroke-width="16"/>
-<line x1="40" y1="640" x2="440" y2="640" stroke="brown" stroke-width="16"/>
-<line x1="40" y1="40" x2="40" y2="640" stroke="brown" stroke-width="16"/>
-<line x1="240" y1="40" x2="240" y2="640" stroke="brown" stroke-width="16"/>
-<line x1="440" y1="40" x2="440" y2="640" stroke="brown" stroke-width="16"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="480" version="1.1">
+<line x1="40" y1="40" x2="640" y2="40" stroke="brown" stroke-width="16"/>
+<line x1="40" y1="240" x2="640" y2="240" stroke="brown" stroke-width="16"/>
+<line x1="40" y1="440" x2="640" y2="440" stroke="brown" stroke-width="16"/>
+<line x1="40" y1="40" x2="40" y2="440" stroke="brown" stroke-width="16"/>
+<line x1="240" y1="40" x2="240" y2="440" stroke="brown" stroke-width="16"/>
+<line x1="440" y1="40" x2="440" y2="440" stroke="brown" stroke-width="16"/>
+<line x1="640" y1="40" x2="640" y2="440" stroke="brown" stroke-width="16"/>
 <line x1="40" y1="40" x2="440" y2="440" stroke="brown" stroke-width="16"/>
 <line x1="40" y1="440" x2="440" y2="40" stroke="brown" stroke-width="16"/>
-<line x1="240" y1="640" x2="440" y2="440" stroke="brown" stroke-width="16"/>
-<line x1="40" y1="440" x2="240" y2="640" stroke="brown" stroke-width="16"/>
+<line x1="440" y1="440" x2="640" y2="240" stroke="brown" stroke-width="16"/>
+<line x1="440" y1="40" x2="640" y2="240" stroke="brown" stroke-width="16"/>
 <circle cx="40" cy="40" r="32" stroke="darkgreen" stroke-width="8" fill="lightgreen" />
 <circle cx="240" cy="40" r="32" stroke="darkgreen" stroke-width="8" fill="lightgreen" />
 <circle cx="440" cy="40" r="32" stroke="darkgreen" stroke-width="8" fill="lightgreen" />
+<circle cx="640" cy="40" r="32" stroke="darkgreen" stroke-width="8" fill="lightgreen" />
 <circle cx="40" cy="240" r="32" stroke="darkgreen" stroke-width="8" fill="lightgreen" />
 <circle cx="240" cy="240" r="32" stroke="darkgreen" stroke-width="8" fill="lightgreen" />
 <circle cx="440" cy="240" r="32" stroke="darkgreen" stroke-width="8" fill="lightgreen" />
+<circle cx="640" cy="240" r="32" stroke="darkgreen" stroke-width="8" fill="lightgreen" />
 <circle cx="40" cy="440" r="32" stroke="darkgreen" stroke-width="8" fill="lightgreen" />
 <circle cx="240" cy="440" r="32" stroke="darkgreen" stroke-width="8" fill="lightgreen" />
 <circle cx="440" cy="440" r="32" stroke="darkgreen" stroke-width="8" fill="lightgreen" />
-<circle cx="40" cy="640" r="32" stroke="darkgreen" stroke-width="8" fill="lightgreen" />
-<circle cx="240" cy="640" r="32" stroke="darkgreen" stroke-width="8" fill="lightgreen" />
-<circle cx="440" cy="640" r="32" stroke="darkgreen" stroke-width="8" fill="lightgreen" />
+<circle cx="640" cy="440" r="32" stroke="darkgreen" stroke-width="8" fill="lightgreen" />
 <circle cx="140" cy="140" r="32" stroke="darkgreen" stroke-width="8" fill="lightgreen" />
 <circle cx="340" cy="140" r="32" stroke="darkgreen" stroke-width="8" fill="lightgreen" />
+<circle cx="540" cy="140" r="32" stroke="darkgreen" stroke-width="8" fill="lightgreen" />
 <circle cx="140" cy="340" r="32" stroke="darkgreen" stroke-width="8" fill="lightgreen" />
 <circle cx="340" cy="340" r="32" stroke="darkgreen" stroke-width="8" fill="lightgreen" />
-<circle cx="140" cy="540" r="32" stroke="darkgreen" stroke-width="8" fill="lightgreen" />
-<circle cx="340" cy="540" r="32" stroke="darkgreen" stroke-width="8" fill="lightgreen" />
+<circle cx="540" cy="340" r="32" stroke="darkgreen" stroke-width="8" fill="lightgreen" />
 </svg>
 
 <ul>
+			<li class="pion bleu" id="p4"></li>
 			<li class="pion bleu" id="p5"></li>
 			<li class="pion bleu" id="p6"></li>
-			<li class="pion bleu" id="p7"></li>
-			<li class="pion bleu" id="p8"></li>
 			<li class="pion rouge" id="p1"></li>
 			<li class="pion rouge" id="p2"></li>
 			<li class="pion rouge" id="p3"></li>
-			<li class="pion rouge" id="p4"></li>
 </ul>
 
 
