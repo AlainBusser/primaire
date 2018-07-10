@@ -1,0 +1,68 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Snort</title>
+  <link rel="stylesheet" href="../css/jquery-ui.css" />
+  <link rel="stylesheet" href="../css/refiom.css" />
+  <script src="../javascript/coffee-script.js"></script>
+  <script src="../javascript/jquery.min.js"></script>
+  <script src="../javascript/jquery-ui.min.js"></script>
+  <script src="../javascript/jquery.ui.touch-punch.min.js"></script>
+
+</head>
+<body>
+<script type="text/coffeescript">
+joueurs = ["Avera ☢","Leovia ☠"]
+symbole = ["☢","☠"]
+joueur = 0
+fini = false
+xc = (cell) -> cell.index()
+yc = (cell) -> cell.parent().index()
+neighbors = (cA,cB) ->
+    (xc(cA)==xc(cB) and Math.abs(yc(cA)-yc(cB))==1) or (yc(cA)==yc(cB) and Math.abs(xc(cA)-xc(cB))==1)
+empty = (cell) -> cell.text() == ""
+$ ->
+    
+    $("td").on 'click', ->
+        if empty($(this)) and not fini
+            $(this).text symbole[joueur]
+            depot = $(this)
+            boom = false
+            $("td").each ->
+                if neighbors($(this),depot) and not empty($(this)) and $(this).text() != depot.text()
+                    boom = true
+            if boom
+                fini = true
+                alert "Le joueur #{joueurs[joueur]} a perdu ⚡⚡⚡"
+            joueur = 1-joueur
+            $(".joueur").text joueurs[joueur]
+                    
+</script>
+
+
+<h1>Snort</h1>
+
+<p>Dans ce jeu, les deux joueurs travaillent respectivement pour 
+l'entreprise Avera qui doit se débarasser de déchets nucléaires ☢, 
+et l'entreprise Leovia qui doit se débarasser de déchets toxiques ☠. 
+Pour jouer, chacun son tour doit déposer dans une parcelle encore 
+vide un de ses déchets. Mais attention : Si des déchets nucléaires 
+et des déchets toxiques sont déposés dans des parcelles voisines, 
+boum ⚡ !</p>
+<p>Le premier joueur qui n'a plus de place pour déposer ses déchets 
+est le perdant du jeu.</p>
+<table>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+</table>
+<h3>C'est au joueur <span class="joueur">Avera ☢</span> de déposer ses déchets.</h3>
+<footer>Snort a été inventé par Simon NORTon</footer>
+</body>
+</html>

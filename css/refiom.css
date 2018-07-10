@@ -1,0 +1,14 @@
+body { 
+    background-color: lightgray; 
+    }
+table { 
+    border: 2px outset gray; 
+    border-spacing: 0;
+    }
+td { 
+    width: 64px; 
+    height: 64px; 
+    font-size: 40px;
+    border: 1px solid black; 
+    background-color: darkgray;
+    }
