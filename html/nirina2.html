@@ -11,14 +11,7 @@
 
   </head>
   <body>
-	  <h1>Un autre descendant d'alquerque</h1>
-	  <p>Chaque pion ne figure que sur une case de sa propre couleur, et y reste:
-	  <ul>
-		  <li>Les pions ne bougent que diagonalement, d'une seule case;</li>
-		  <li>La prise se fait en sautant par-dessus un pion de la couleur adverse, comme au solitaire ou au Konane.</li>
-	  </ul>
-	  </p>
-	  
+	  <h1>Alquerkonane</h1>
 <table id="echiquier">
 	<tr>
 		<td class="noire"><div>♟</div></td><td class="blanche"></td><td class="noire"><div>♟</div></td><td class="blanche"></td>
@@ -53,6 +46,20 @@
 		<td class="blanche"><div>♙</div></td><td class="noire"></td><td class="blanche"><div>♙</div></td><td class="noire"></td>
 	</tr>
 </table>
+<h3>C'est aux <span id="joueur">blancs</span> de jouer</h3>
+
+<div class="regle">
+    <h2>Règle du jeu</h2>
+	  <p>Chaque pion ne figure que sur une case de sa propre couleur, et y reste:
+	  <ul>
+		  <li>Les pions ne bougent que diagonalement, d'une seule case;</li>
+		  <li>La prise se fait en sautant par-dessus un pion de la couleur adverse, comme au solitaire ou au Konane.</li>
+	  </ul>
+	  </p>
+<p>Le but du jeu est de prendre tous les pions de l'adversaire.</p>
+
+<footer>Jeu inventé par Nirina Mussard, à l'âge de 7 ans</footer>
+</div>	  
 
 	  
 <script type="text/coffeescript">
@@ -60,6 +67,7 @@ joueur = 0
 joueurs = ['blancs', 'noirs']
 
 $ ->
+    $(".regle").draggable()
 	$(".blanche").sortable 
 		connectWith: ".blanche"
 		stop: (e,u) ->
@@ -97,9 +105,5 @@ $ ->
 			$("#joueur").text joueurs[joueur]
 
 </script>
-<h3>C'est aux <span id="joueur">blancs</span> de jouer</h3>
-<p>Le but du jeu est de prendre tous les pions de l'adversaire.</p>
-
-<footer>Jeu inventé par Nirina Mussard, à l'âge de 7 ans</footer>
   </body>
 </html>

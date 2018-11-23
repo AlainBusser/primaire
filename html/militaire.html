@@ -63,7 +63,7 @@ changeJ = ->
         $("#dessinJ").toggleClass(adversaire[joueur]).toggleClass(joueur)
 
 $ ->
-    $(".regle").draggable()
+    $(".regle, #graphe").draggable()
     vide = ->
         (not $("##{destination}").hasClass "tang") and (not $("##{destination}").hasClass "dog")
     videbis = ->
