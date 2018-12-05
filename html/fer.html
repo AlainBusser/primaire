@@ -13,47 +13,97 @@
 <body>
 <script type="text/coffeescript">
 $ ->
-    $(".pion, #regle").draggable()
+    $("#graphe, #regle").draggable()
                     
 </script>
 
 <div id="regle">
 <h2>Règle du jeu</h2>
-<p>Le but du jeu est, pour chacun des joueurs, de coincer les deux pions de 
-l'autre joueur.</p>
-<h3>Début de partie</h3>
-<ul>
-	<li>Le joueur "rouge" place un des deux pions rouges sur une des 5 cases vertes</li>
-	<li>Le joueur "bleu" place un des deux pions bleus sur une des 4 cases restantes</li>
-	<li>Le joueur "rouge" place le 2e pion rouge sur une des 3 cases restantes</li>
-	<li>Le joueur "bleu" place le 2e pion bleu sur une des 2 cases restantes</li>
-</ul>
-<h3>Fin de partie</h3>
-<p>Chaque joueur, quand c'est son tour, déplace un pion de sa couleur vers la 
-case libre, en glissant le pion le long d'un trait marron. Le premier joueur qui 
-ne peut plus bouger de pion a perdu.</p>
+<div id="dessinJ" class="rouge"></div>
+<h3>C'est à <span class="quijoue" >Rouge</span> de jouer</h3>
+<p>Pour jouer, <span class="quijoue">Rouge</span> doit cliquer sur <span id="quefaire">un sommet libre pour y ajouter</span> une voiture de sa couleur.</p>
 </div>
 
-<h1>Jeu du fer à cheval</h1>
+<h1>Le jeu du fer à cheval</h1>
 
+      <table id="graphe" style="background-image: url(../media/graphefer.svg);">
+          <tr><td class="sommet" id="g3"></td><td class="est"></td><td class="est"></td><td class="est"></td><td class="sommet" id="d3"></td></tr>
+          <tr><td class="nord"></td><td class="nw"></td><td></td><td class="ne"></td><td class="nord"></td></tr>
+          <tr><td class="nord" id="g2"></td><td></td><td class="sommet" id="c2"></td><td></td><td class="nord" id="d2"></td></tr>
+          <tr><td class="nord"></td><td class="ne"></td><td></td><td class="nw"></td><td class="nord"></td></tr>
+          <tr><td class="sommet" id="g1"></td><td></td><td></td><td></td><td class="sommet" id="d1"></td></tr>
+      </table>
 
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="280" height="360" version="1.1">
-<path d="M 240 120 l -200 200 v -200 a 100 100 0 0 1 200 0 v 200 l -200 -200" fill="none" stroke="brown" stroke-width="16"/>
-<circle cx="40" cy="120" r="36" stroke="darkgreen" stroke-width="8" fill="lightgreen" />
-<circle cx="240" cy="120" r="36" stroke="darkgreen" stroke-width="8" fill="lightgreen" />
-<circle cx="40" cy="320" r="36" stroke="darkgreen" stroke-width="8" fill="lightgreen" />
-<circle cx="240" cy="320" r="36" stroke="darkgreen" stroke-width="8" fill="lightgreen" />
-<circle cx="140" cy="220" r="36" stroke="darkgreen" stroke-width="8" fill="lightgreen" />
-</svg>
+<script type="text/coffeescript">
+rougeslibres = 2
+bleuslibres = 2
+nom = { "rouge": "Rouge", "bleu": "Bleu" }
+joueur = "rouge"
+adversaire = { "rouge": "bleu", "bleu": "rouge" }
+curseur = { "rouge": "../media/tirouge.png", "bleu": "../media/tibleu.png"}
+boussole = ["g","c","d"]
+origine = "c2"
+destination = "g3"
+changeJ = ->
+        joueur = adversaire[joueur]
+        $(".quijoue").text nom[joueur]
+        $(".est, .nord, .ne, .nw").css "cursor", "url('#{curseur[joueur]}'), pointer"
+        $("#dessinJ").toggleClass(adversaire[joueur]).toggleClass(joueur)
+        if rougeslibres>0 or bleuslibres>0
+            $("#quefaire").text "un sommet libre pour y ajouter"
+        else
+            $("#quefaire").text "une route vers un sommet libre, qui sera parcourue par"
 
-<ul>
-			<li class="pion rouge"></li>
-			<li class="pion rouge"></li>
-			<li class="pion bleu"></li>
-			<li class="pion bleu"></li>
-</ul>
-
+$ ->
+    $(".regle, #graphe").draggable()
+    vide = ->
+        (not $("##{destination}").hasClass "rouge") and (not $("##{destination}").hasClass "bleu") || (not $("##{origine}").hasClass "rouge") and (not $("##{origine}").hasClass "bleu")
+    $(".sommet").on "click", ->
+        if rougeslibres>0 and joueur=="rouge" and not $(this).hasClass "rouge" and not $(this).hasClass "bleu"
+            $(this).addClass "rouge"
+            rougeslibres -= 1 
+            changeJ()  
+        else
+          if bleuslibres>0 and joueur=="bleu" and not $(this).hasClass "rouge" and not $(this).hasClass "bleu"
+            $(this).addClass "bleu"
+            bleuslibres -= 1 
+            changeJ()  
+    unCoup = (how,who) ->
+                if ($("##{origine}").hasClass joueur) and vide()
+                    $("##{origine}").removeClass joueur
+                    $("##{destination}").addClass joueur
+                    changeJ()
+                if ($("##{destination}").hasClass joueur) and vide()
+                    $("##{destination}").removeClass joueur
+                    $("##{origine}").addClass joueur
+                    changeJ()
+    $(".nord").on 'click', ->
+      if rougeslibres==0 and bleuslibres==0
+        colonne = boussole[$(this).index()/2]
+        origine = colonne+"1" 
+        destination = colonne+"3" 
+        unCoup("nord",joueur)
+    $(".est").on 'click', ->
+      if rougeslibres==0 and bleuslibres==0
+        ligne = ((6-$(this).parent().index())/2)
+        if ligne == 3
+            origine = "g3"
+            destination = "d3"
+        else
+            origine = ""+(boussole[($(this).index()-1)/2])+ ligne
+            destination = ""+(boussole[($(this).index()+1)/2])+ligne
+        unCoup("est",joueur)
+    $(".ne").on 'click', ->
+      if rougeslibres==0 and bleuslibres==0
+        origine = ""+(boussole[($(this).index()-1)/2])+((5-$(this).parent().index())/2) 
+        destination = ""+(boussole[($(this).index()+1)/2])+((7-$(this).parent().index())/2) 
+        unCoup("ne",joueur)
+    $(".nw").on 'click', ->
+      if rougeslibres==0 and bleuslibres==0
+        origine = ""+(boussole[($(this).index()+1)/2])+((5-$(this).parent().index())/2) 
+        destination = ""+(boussole[($(this).index()-1)/2])+((7-$(this).parent().index())/2) 
+        unCoup("nw",joueur)
+</script>
 
 
 </body>
