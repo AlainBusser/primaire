@@ -59,12 +59,12 @@ $ ->
     vide = ->
         (not $("##{destination}").hasClass "rouge") and (not $("##{destination}").hasClass "bleu") || (not $("##{origine}").hasClass "rouge") and (not $("##{origine}").hasClass "bleu")
     $(".sommet").on "click", ->
-        if rougeslibres>0 and joueur=="rouge" and not $(this).hasClass "rouge" and not $(this).hasClass "bleu"
+        if (rougeslibres>0 and joueur=="rouge") and (not $(this).hasClass "rouge") and (not $(this).hasClass "bleu")
             $(this).addClass "rouge"
             rougeslibres -= 1 
             changeJ()  
         else
-          if bleuslibres>0 and joueur=="bleu" and not $(this).hasClass "rouge" and not $(this).hasClass "bleu"
+          if (bleuslibres>0 and joueur=="bleu") and (not $(this).hasClass "rouge") and (not $(this).hasClass "bleu")
             $(this).addClass "bleu"
             bleuslibres -= 1 
             changeJ()  
