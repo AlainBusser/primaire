@@ -2,7 +2,7 @@
 <html><head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Parkings 1×2</title>
+<title>parkings</title>
   <link rel="stylesheet" href="../css/jquery-ui.css" />
   <link rel="stylesheet" href="../css/nirina1.css" />
   <script src="../javascript/coffee-script.js"></script>
@@ -20,47 +20,64 @@
 </head>
 <body>
 
+<div id="regle">
+<h2>Règle du jeu</h2>
+<p>Le but du jeu est, pour chacun des joueurs, de garer ses trois voitures dans le 
+parking opposé.</p>
+<p>On ne peut pas bouger une voiture vers une case déjà occupée par une autre voiture.</p>
+<p>Le parking des voitures bleues est tout à gauche, le parking des voitures rouges est tout à droite.</p>
+<p>Le joueur qui a les voitures bleues veut les garer toutes à droite.</p>
+<p>Le joueur qui a les voitures rouges veut les garer toutes à gauche.</p>
+<p>Le joueur qui a les voitures rouges commence.</p>
+<p>Si un joueur est bloqué, il a perdu.</p>
+<footer>Jeu inventé par Nirina Mussard à l'âge de 6 ans</footer>
+</div>
 
-<h1>Le jeu des deux parkings en version 1×2</h1>
+<h1>Le jeu des deux parkings</h1>
 <h3>C'est au joueur <span class="quijoue">rouge</span> de jouer <img id="dessinJ" class="rouge"></img></h3>
-      <table id="graphe" style="background-image: url(../media/graphe12.svg);">
+      <table id="graphe" style="background-image: url(../media/graphe22.svg);">
           <tr>
               <td class="sommet bleu"></td><td class="est"></td><td class="est"></td><td class="est"></td>
+              <td class="sommet"></td><td class="est"></td><td class="est"></td><td class="est"></td>
               <td class="sommet rouge"></td>
         </tr>
         <tr>
-            <td class="nord"></td><td class="nw"></td><td></td><td></td>
+            <td class="nord"></td><td class="nw"></td><td></td><td></td><td class="nord"></td><td></td><td></td><td class="ne"></td>
             <td class="nord"></td>
         </tr>
         <tr>
             <td class="nord"></td><td></td><td class="sommet"></td><td></td>
-            <td class="nord"></td>
-        </tr>
-        <tr>
-            <td class="nord"></td><td></td><td></td><td class="nw"></td>
-            <td class="nord"></td>
-        </tr>
-          <tr>
-              <td class="sommet bleu"></td><td class="est"></td><td class="est"></td><td class="est"></td>
-              <td class="sommet rouge"></td>
-        </tr>
-        <tr>
-            <td class="nord"></td><td></td><td></td><td class="ne"></td>
-            <td class="nord"></td>
-        </tr>
-        <tr>
             <td class="nord"></td><td></td><td class="sommet"></td><td></td>
             <td class="nord"></td>
         </tr>
         <tr>
-            <td class="nord"></td><td class="ne"></td><td></td><td></td>
+            <td class="nord"></td><td></td><td></td><td class="nw"></td><td class="nord"></td><td class="ne"></td><td></td><td></td>
             <td class="nord"></td>
         </tr>
           <tr>
               <td class="sommet bleu"></td><td class="est"></td><td class="est"></td><td class="est"></td>
+              <td class="sommet"></td><td class="est"></td><td class="est"></td><td class="est"></td>
               <td class="sommet rouge"></td>
         </tr>
-          </table>
+        <tr>
+            <td class="nord"></td><td></td><td></td><td class="ne"></td><td class="nord"></td><td class="nw"></td><td></td><td></td>
+            <td class="nord"></td>
+        </tr>
+        <tr>
+            <td class="nord"></td><td></td><td class="sommet"></td><td></td>
+            <td class="nord"></td><td></td><td class="sommet"></td><td></td>
+            <td class="nord"></td>
+        </tr>
+        <tr>
+            <td class="nord"></td><td class="ne"></td><td></td><td></td><td class="nord"></td><td></td><td></td><td class="nw"></td>
+            <td class="nord"></td>
+        </tr>
+          <tr>
+              <td class="sommet bleu"></td><td class="est"></td><td class="est"></td><td class="est"></td>
+              <td class="sommet"></td><td class="est"></td><td class="est"></td><td class="est"></td>
+              <td class="sommet rouge"></td>
+        </tr>
+      </table>
 <script type="text/coffeescript">
 joueur = "rouge"
 adversaire = { "rouge": "bleu", "bleu": "rouge" }
@@ -75,7 +92,7 @@ changeJ = ->
         $("#dessinJ").toggleClass(adversaire[joueur]).toggleClass(joueur)
 
 $ ->
-    $("#graphe").draggable()
+    $("#graphe, #regle").draggable()
     vide = ->
         (not destination.hasClass "rouge") and (not destination.hasClass "bleu") || (not origine.hasClass "rouge") and (not origine.hasClass "bleu")
     unCoup = (who) ->
