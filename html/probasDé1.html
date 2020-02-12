@@ -1,0 +1,147 @@
+<!doctype html>
+ 
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>probas Dé</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/coffee-script/1.4.0/coffee-script.min.js"></script>
+  <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>
+  <script src="https://raw.github.com/furf/jquery-ui-touch-punch/master/jquery.ui.touch-punch.min.js"></script>
+
+<style>
+body { min-width: 520px; }
+.ensemble { width: 4em; float: left; padding: 2em; margin: 1em 4em 2em 1em;}
+#evenement {width: 8em; border: 4px inset maroon; border-radius: 1em; background: darkGreen;}
+.nombre { width: 48px; height: 48px; color: maroon; margin: 0.5em 2em 1em 0.5em; background: ivory; border-radius: 8px; box-shadow: 4px 3px 2px black;}
+.ui-sortable-placeholder { background: lightGreen; border: 1px dotted black; visibility: visible !important; height: 2em !important; }
+#triche { width: 200px; height: 10px; }
+#triche div {background: darkRed; }
+#diagnostic1 {color: darkRed; }
+</style>
+ 
+  
+</head>
+
+
+<body>
+<script type="text/coffeescript">
+###
+this source is free, under MIT license
+(http://opensource.org/licenses/MIT)
+authors: Alain Busser, Florian Tobé
+###
+$ ->
+	comprehensions = 
+		"pair": (x) -> x%2 is 0
+		"impair": (x) -> x%2 isnt 0
+		"divisiblePar3": (x) -> x%3 is 0
+		"plusGrandQue2": (x) -> x > 2
+		"plusGrandQue3": (x) -> x > 3
+		"plusGrandQue4": (x) -> x > 4
+		"plusGrandQue1": (x) -> x > 1
+		"plusPetitQue2": (x) -> x < 2
+		"plusPetitQue3": (x) -> x < 3
+		"plusPetitQue4": (x) -> x < 4
+		"plusPetitQue5": (x) -> x < 5
+			
+	messages = ["pair (ou divisible par 2)","impair (ou pas divisible par 2)","divisible par 3"]
+	fonctions = ["pair","impair","divisiblePar3"]
+	totaux = [3, 3, 2]
+	for seuil in [1..4]
+		messages.push "supérieur à #{seuil}"
+		fonctions.push "plusGrandQue#{seuil}"
+		totaux.push 6-seuil
+	for seuil in [2..5]
+		messages.push "inférieur à #{seuil}"
+		fonctions.push "plusPetitQue#{seuil}"
+		totaux.push seuil-1
+	#### dessin des faces du dé	
+	pi = Math.PI
+	casFavorables = 0
+	for valeur in [1..6]
+			$("#f"+valeur).append "<canvas width='48' height='48' id='c"+valeur+"'></canvas>"
+			ctx=$("#c"+valeur)[0].getContext '2d'
+			ctx.strokeStyle='maroon'
+			ctx.fillStyle='maroon'
+			ctx.beginPath()
+			if valeur > 1
+				ctx.moveTo 12, 12
+				ctx.arc 12, 12, 4, 0, 2*pi, true
+				ctx.moveTo 36, 36
+				ctx.arc 36, 36, 4, 0, 2*pi, true
+				if valeur > 3
+					ctx.moveTo 12, 36
+					ctx.arc 12, 36, 4, 0, 2*pi, true
+					ctx.moveTo 36, 12
+					ctx.arc 36, 12, 4, 0, 2*pi, true
+					if valeur > 5
+						ctx.moveTo 12, 24
+						ctx.arc 12, 24, 4, 0, 2*pi, true
+						ctx.moveTo 36, 24
+						ctx.arc 36, 24, 4, 0, 2*pi, true
+			if valeur % 2 is 1
+				ctx.moveTo 24, 24
+				ctx.arc 24, 24, 4, 0, 2*pi, true
+			ctx.fill()
+			
+	#### insuffler un peu de vie à tout ça
+	$( ".ensemble" ).sortable
+		connectWith: ".ensemble"
+		stop: (event, ui) ->
+			liste=[]
+			[manque, trop,faux] =  [totaux[dé], 0,'']
+			$("#evenement div").each (x) ->
+				valeurFace = eval($(this).attr('id')[1])
+				liste.push valeurFace
+				if comprehensions[fonctions[dé]](valeurFace)
+					manque--
+				else
+					trop++
+					faux = "car le #{valeurFace} n'est pas #{messages[dé]}"
+			casFavorables = liste.length
+			$(".descr_evt").text liste
+			$("#triche").progressbar
+				value: 100*casFavorables/6
+			$(".cf").text casFavorables
+			$(".label").text casFavorables/6
+			$("#diagnostic2").text faux
+			if trop is 0 and manque is 0
+				$("#diagnostic1").text "décrit"
+				$("#diagnostic2").text ": Exercice réussi, Yessssss!!!"
+			else
+				$("#diagnostic1").text "ne décrit pas"
+	$( ".nombre" ).addClass( "ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" )
+	$( ".ensemble" ).disableSelection()	
+	
+	##### fabrication de l'exo avec choix au hasard
+	dé = Math.floor(messages.length*Math.random())
+	$(".compreh").text messages[dé]
+			
+</script>
+<h3>Constituer l'évènement suivant :</h3>
+<h4>Le résultat du lancer est <span class="compreh"></span></h4>
+<div class="ensemble">
+<div class="nombre" id="f1"></div>
+<div class="nombre" id="f2"></div>
+<div class="nombre" id="f3"></div>
+<div class="nombre" id="f4"></div>
+<div class="nombre" id="f5"></div>
+<div class="nombre" id="f6"></div>
+</div>
+<div class="ensemble" id="evenement">
+</div>
+<h3>Probabilité</h3>
+<p>
+L'évènement {<span class="descr_evt"></span>} contient <span class="cf">0</span> éventualités (ou cas favorables), 
+sur 6 cas possibles au total, sa probabilité est donc <span class="cf">0</span>/6 = <span class="label">0</span>.
+<div id="triche"></div>
+</p>
+<h3>
+L'événement {<span class="descr_evt"></span>}  <span id="diagnostic1">ne décrit pas</span> l'événement "le résultat est 
+<span class="compreh"></span>" <span id="diagnostic2"></span>
+</h3>
+</body>
+</html>

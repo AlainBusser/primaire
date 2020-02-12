@@ -1,0 +1,154 @@
+<!doctype html>
+ 
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>les têtes dans le sac</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/coffee-script/1.4.0/coffee-script.min.js"></script>
+  <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.8.21/jquery-ui.min.js"></script>
+  <script src="https://raw.github.com/furf/jquery-ui-touch-punch/master/jquery.ui.touch-punch.min.js"></script>
+
+<style>
+body { color: black; min-width: 520px; }
+.ensbilles {display: inline; margin: 0; padding: 0;  width: 4em; padding: 2em; }
+.ensbilles li {list-style: none; display: inline-block; margin: 10px; }
+.bleu, .rouge { display: inline-block; list-style-type: none;}
+.bleu { background-image: radial-gradient(lightBlue,darkBlue);}
+.rouge { background-image: radial-gradient(pink,darkRed);}
+#sac {float: left; width: auto; border: 4px outset maroon; border-radius: 4em; background: Peru;}
+.bille { display: inline; width: 40px; height: 40px; border-radius: 20px; margin: 0 1em 1em 0; }
+.ui-sortable-placeholder { display: inline; background: lightGreen; border: 1px dotted black; border-radius: 1em; visibility: visible !important; height: 2em !important; }
+.fraction, .top, .bottom { padding: 0 5px; }
+.fraction { transform: translate(0,0.5em); display: inline-block; text-align: center; }
+.bottom{ border-top: 2px solid #000; display: block; }
+</style>
+ 
+  
+</head>
+
+
+<body>
+<script type="text/coffeescript">
+###
+this source is free, under MIT license
+(http://opensource.org/licenses/MIT)
+authors: Alain Busser, Florian Tobé
+###
+#traductions
+nums = 
+		1: "le"
+		2: "les deux"
+		3: "les trois"
+		4: "les quatre"
+		5: "les cinq"
+		6: "les six"
+		7: "les sept"
+		8: "les huit"
+		9: "les neuf"
+		10: "les dix"
+dens = 
+		1: "unièmes"
+		2: "demis"
+		3: "tiers"
+		4: "quarts"
+		5: "cinquièmes"
+		6: "sixièmes"
+		7: "septièmes"
+		8: "huitièmes"
+		9: "neuvièmes"
+		10: "dixièmes"
+densing = 
+		1: "unième"
+		2: "demi"
+		3: "tiers"
+		4: "quart"
+		5: "cinquième"
+		6: "sixième"
+		7: "septième"
+		8: "huitième"
+		9: "neuvième"
+		10: "dixième"
+#pour simplifier les fractions
+pgcd = (a,b) ->
+	[x, y] = [a, b]
+	[x, y] = [y, x%y] until y is 0
+	x
+alea = (a, b) ->
+	a + Math.floor Math.random()*(b+1-a)
+#une fois qu'on a démarré	
+$ ->
+#énoncé
+	den = alea 2, 10
+	num = alea 1, den-1
+	g = pgcd num, den
+	den /= g
+	num /= g
+	$(".nomnum").text nums[num]
+	if num is 1
+		$(".nomden").text densing[den]
+	else
+		$(".nomden").text dens[den]
+
+#fabrication des boules
+	for n in [1..20]
+		$("#stock").append "<li id='boul"+n+"' class='bille'><div class='bille'></div></li>"
+		if n < 11
+			$("#boul"+n).addClass "bleu"
+		else
+			$("#boul"+n).addClass "rouge"
+			
+#comptage des billes
+	$( ".ensbilles" ).sortable
+		connectWith: ".ensbilles"
+		stop: (event, ui) ->
+			[nb, nr, nt] = [0, 0, 0]
+			$("#sac li").each (x) ->
+				if $(this).hasClass "rouge" then nr++
+				if $(this).hasClass "bleu" then nb++
+			$(".totalrouge").text nr
+			$(".totalbleu").text nb
+			nt = nr + nb
+			$(".total").text nt
+			g = pgcd nr, nt
+			$(".numred").text nr/g
+			$(".denred").text nt/g
+			$(".numnom").text nums[nr/g]
+			if nr/g is 1
+				$(".dennom").text densing[nt/g]
+			else
+				$(".dennom").text dens[nt/g]
+			$(".valappr").text (nr/nt).toFixed 8
+			if nr/nt is num/den
+				$(".youpi").text "Yessss!!! Exercice réussi!!!"
+			else
+				$(".youpi").text ""
+	$( ".boule" ).addClass( "ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" )
+	$( ".ensbilles" ).disableSelection()	
+			
+</script>
+<h3>Placer des billes dans le sac brun, de telle manière que <span class="nomnum">les deux</span> 
+<span class="nomden">cinquièmes</span> d'entre elles soient rouges</h3>
+<ul class="ensbilles connectedSortable" id="stock"></ul>
+<table>
+	<tr>
+		<td> <ul class="ensbilles connectedSortable" id="sac"></ul></td>
+	</tr>
+</table>
+<p>La fraction de boules rouges dans le sac est de <span class="totalrouge">0</span> 
+boules rouges sur un total de <span class="total">0</span> boules, donc 
+<span class="fraction"><span class="top totalrouge">0</span><span class="bottom total">0</span></span> = 
+<span class="fraction"><span class="top numred">0</span><span class="bottom denred">0</span></span> &approx; 
+<span class="valappr">0</span>; 
+<span class="numnom">zéro</span> <span class="dennom">zéroièmes</span> 
+des boules du sac sont rouges.
+</p>
+<p>Il y a <span class="totalrouge">0</span> boules rouges dans le sac, et <span class="totalbleu">0</span> 
+boules bleues, donc en tirant une boule au hasard dans le sac, on a <span class="totalrouge">0</span> 
+chances contre <span class="totalbleu">0</span> qu'elle soit rouge. Ou <span class="totalrouge">0</span> 
+chances sur <span class="total">0</span> qu'elle soit rouge.</p>
+<h2 class="youpi"></h2>
+</body>
+</html>
