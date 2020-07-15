@@ -1,0 +1,123 @@
+<html lang="fr">
+  <head>
+    <title>Alquerkonane</title>
+    <meta charset="utf-8">
+  <link rel="stylesheet" href="../css/jquery-ui.css" />
+  <link rel="stylesheet" href="../css/nirina2.css" />
+  <script src="../javascript/coffee-script.js"></script>
+  <script src="../javascript/jquery.min.js"></script>
+  <script src="../javascript/jquery-ui.min.js"></script>
+  <script src="../javascript/jquery.ui.touch-punch.min.js"></script>
+
+  </head>
+  <body>
+	  <h1>Alquerkonane 4×4</h1>
+<table id="echiquier">
+	<tr>
+		<td class="noire"><div>♟</div></td><td class="blanche"></td><td class="noire"><div>♟</div></td><td class="blanche"></td>
+	</tr>
+	<tr>
+		<td class="blanche"></td><td class="noire"><div>♟</div></td><td class="blanche"></td><td class="noire"><div>♟</div></td>
+	</tr>
+	<tr>
+		<td class="noire"></td><td class="blanche"><div>♙</div></td><td class="noire"></td><td class="blanche"><div>♙</div></td>
+	</tr>
+	<tr>
+		<td class="blanche"><div>♙</div></td><td class="noire"></td><td class="blanche"><div>♙</div></td><td class="noire"></td>
+	</tr>
+</table>
+<h3>C'est aux <span id="joueur">blancs</span> de jouer</h3>
+
+
+	  
+<script type="text/coffeescript">
+joueur = 0		
+joueurs = ['blancs', 'noirs']
+
+$ ->
+    $(".blanche").on "click", ->
+      if $(this).hasClass "buzz1"
+        x = $(this).index()
+        y = $(this).parent().index()
+        x1 = $(".selected").index()
+        y1 = $(".selected").parent().index()
+        if x1==x or y1==y
+            xm = (x+x1)/2
+            ym = (y+y1)/2
+            $("#echiquier tr").eq(ym).children().eq(xm).text("")
+        $(".selected").text("")
+        $(this).text("♙")
+        $("#echiquier td").removeClass("selected").removeClass("buzz1")
+        $(".selected").removeClass "selected"
+        joueur = 1
+        $("#joueur").text joueurs[joueur]
+      else
+        $("td").each ->
+            $(this).removeClass "buzz1"
+        if joueur==0 and $(this).text()=="♙"
+            if $(this).hasClass "selected"
+                $(this).removeClass "selected"
+            else
+                $("td").each ->
+                    $(this).removeClass "selected"
+                $(this).addClass "selected"
+                x1 = $(this).index()
+                y1 = $(this).parent().index()
+                for x in [0...4]
+                    for y in [0...4]
+                        if Math.abs(x-x1)==1 and Math.abs(y-y1)==1
+                            cellule = $("#echiquier tr").eq(y).children().eq(x)
+                            if cellule.text()!="♙"
+                                cellule.addClass "buzz1"
+                        if (Math.abs(x-x1)==2 and y==y1) or (Math.abs(y-y1)==2 and x==x1)
+                            xm = (x+x1)/2
+                            ym = (y+y1)/2
+                            if $("#echiquier tr").eq(ym).children().eq(xm).text()=="♟"
+                                cellule = $("#echiquier tr").eq(y).children().eq(x)
+                                if cellule.text()!="♙"
+                                    cellule.addClass "buzz1"
+    $(".noire").on "click", ->
+      if $(this).hasClass "buzz2"
+        x = $(this).index()
+        y = $(this).parent().index()
+        x1 = $(".selected").index()
+        y1 = $(".selected").parent().index()
+        if x1==x or y1==y
+            xm = (x+x1)/2
+            ym = (y+y1)/2
+            $("#echiquier tr").eq(ym).children().eq(xm).text("")
+        $(".selected").text("")
+        $(this).text("♟")
+        $("#echiquier td").removeClass("selected").removeClass("buzz2")
+        $(".selected").removeClass "selected"
+        joueur = 0
+        $("#joueur").text joueurs[joueur]
+      else
+        $("td").each ->
+            $(this).removeClass "buzz2"
+        if joueur==1 and $(this).text()=="♟"
+            if $(this).hasClass "selected"
+                $(this).removeClass "selected"
+            else
+                $("td").each ->
+                    $(this).removeClass "selected"
+                $(this).addClass "selected"
+                x1 = $(this).index()
+                y1 = $(this).parent().index()
+                for x in [0...4]
+                    for y in [0...4]
+                        if Math.abs(x-x1)==1 and Math.abs(y-y1)==1
+                            cellule = $("#echiquier tr").eq(y).children().eq(x)
+                            if cellule.text()!="♟"
+                                cellule.addClass "buzz2"
+                        if (Math.abs(x-x1)==2 and y==y1) or (Math.abs(y-y1)==2 and x==x1)
+                            xm = (x+x1)/2
+                            ym = (y+y1)/2
+                            if $("#echiquier tr").eq(ym).children().eq(xm).text()=="♙"
+                                cellule = $("#echiquier tr").eq(y).children().eq(x)
+                                if cellule.text()!="♟"
+                                    cellule.addClass "buzz2"
+
+</script>
+  </body>
+</html>
