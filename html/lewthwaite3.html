@@ -61,10 +61,10 @@ $ ->
 			yt = $(this).parent().index()								# ordonnée = numéro de la ligne dans le tableau
 		if (x-xt)*(x-xt)+(y-yt)*(y-yt) is 1								# seule une case voisine de t peut être jouée
 			if $(this).hasClass 'B'										# si on a joué une B
-				$("td").not('.B').not('N').addClass 'B'					# t devient une B
+				$("td").not('.B').not('.N').addClass 'B'					# t devient une B
 				$(this).removeClass 'B'									# et la case jouée devient t
 			if $(this).hasClass 'N'										# si on a joué une N
-				$("td").not('.B').not('N').addClass 'N'					# t devient une N
+				$("td").not('.B').not('.N').addClass 'N'					# t devient une N
 				$(this).removeClass 'N'									# et la case jouée perd son N
 			joueur = 1-joueur											# on change de joueur
 			$("#portrait").toggleClass 'C'								# on change de visage de joueur
