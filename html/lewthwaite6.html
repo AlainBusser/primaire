@@ -1,0 +1,84 @@
+<html lang="fr">
+  <head>
+    <title>Lewthwaite</title>
+    <meta charset="utf-8">
+  <script src="../javascript/coffee-script.js"></script>
+  <script src="../javascript/jquery.min.js"></script>
+    <style>
+        table { border: 2px outset brown; }
+        td { font-size: 320%; width: 1.2em; height: 1em; border: 1px solid brown; }
+.N {background-color: brown}
+.B {background-color: lightyellow}
+    </style>
+  </head>
+  <body>
+      <h1>Jeu de Lewthwaite</h1>
+      <p>Comme il y a 48 pions répartis sur 49 cases, à chaque moment, il 
+      n'y a qu'une case vide. Jouer consiste à y glisser un de ses pions. 
+      Le premier qui ne peut plus bouger a perdu.</p>
+      
+<table>
+    <tr>
+        <td class="N">♟</td><td class="B">♙</td><td class="N">♟</td><td class="B">♙</td><td class="N">♟</td><td class="B">♙</td><td class="N">♟</td>
+    </tr>
+    <tr>
+        <td class="B">♙</td><td class="N">♟</td><td class="B">♙</td><td class="N">♟</td><td class="B">♙</td><td class="N">♟</td><td class="B">♙</td>
+    </tr>
+    <tr>
+        <td class="N">♟</td><td class="B">♙</td><td class="N">♟</td><td class="B">♙</td><td class="N">♟</td><td class="B">♙</td><td class="N">♟</td>
+    </tr>
+    <tr>
+        <td class="B">♙</td><td class="N">♟</td><td class="B">♙</td><td class="N"></td><td class="B">♙</td><td class="N">♟</td><td class="B">♙</td>
+    </tr>
+    <tr>
+        <td class="N">♟</td><td class="B">♙</td><td class="N">♟</td><td class="B">♙</td><td class="N">♟</td><td class="B">♙</td><td class="N">♟</td>
+    </tr>
+    <tr>
+        <td class="B">♙</td><td class="N">♟</td><td class="B">♙</td><td class="N">♟</td><td class="B">♙</td><td class="N">♟</td><td class="B">♙</td>
+    </tr>
+    <tr>
+        <td class="N">♟</td><td class="B">♙</td><td class="N">♟</td><td class="B">♙</td><td class="N">♟</td><td class="B">♙</td><td class="N">♟</td>
+    </tr>
+</table>
+
+<h3>C'est aux <span id="joueur">blancs</span> de jouer.</h3>
+<h4><code id="signalement">48</code> pions sont sur une case de leur propre couleur.</h4>
+<script type="text/coffeescript">
+joueur = 0
+joueurs = ['blancs','noirs']
+
+$ ->
+    $("td").on "click", ->
+        exodus = 0
+        x = $(this).index()
+        y = $(this).parent().index()
+        [xt,yt] = [-1,-1]
+        [xc,yc] = [-1,-1]
+        $("td").each ->
+            xc = $(this).index()
+            yc = $(this).parent().index()
+            if $(this).text() is ''
+                    xt = xc
+                    yt = yc
+        if (joueur is 0 and $(this).text() is '♙') or (joueur is 1 and $(this).text() is '♟')
+            possible = false
+            if (x-xt)*(x-xt)+(y-yt)*(y-yt) is 1
+                $("td:empty").text $(this).text()
+                $(this).text ''
+                joueur = 1-joueur
+                $('#joueur').text joueurs[joueur]
+        exodus = 48
+        $("td").each ->
+            xc = $(this).index()
+            yc = $(this).parent().index()
+#            pc = (xc+yc)%2
+            if ($(this).hasClass 'N') and ($(this).text() is '♙')
+                    exodus -= 1
+            if ($(this).hasClass 'B') and ($(this).text() is '♟')
+                    exodus -= 1
+        $("#signalement").text exodus
+
+</script>
+
+  </body>
+</html>
