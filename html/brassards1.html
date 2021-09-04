@@ -1,1 +1,159 @@
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html><head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>parkings</title>
+  <link rel="stylesheet" href="../css/jquery-ui.css" />
+  <!--link rel="stylesheet" href="../css/nirina1.css" /-->
+  <script src="../javascript/coffee-script.js"></script>
+  <script src="../javascript/jquery.min.js"></script>
+  <script src="../javascript/jquery-ui.min.js"></script>
+  <script src="../javascript/jquery.ui.touch-punch.min.js"></script>
+<style>
+h1 {
+    color: red;
+    text-shadow: 3px 2px 5px rgba(128,0,0,0.3);
+    text-align: center;
+}
+
+h2, h3 {
+    color: darkred;
+}
+#graphe {
+    background-color: rgba(200,220,100,0.8); 
+    border-spacing: 0; 
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 6px 4px 10px rgba(0,0,0,0.2);
+}
+#graphe td {
+    width: 45 px;
+    min-width: 45px;
+    height: 48px;
+}
+.sommet {
+    border: 2px solid black;
+    background-color: white;
+    border-radius: 5px;
+    color: white;
+    text-align: center;
+    font-family: Arial;
+}
+.rouge {
+    background-color: red;
+}
+.bleu {
+    background-color: blue;
+}
+</style>
+</head>
+<body>
+
+<h1>Le jeu des brassards</h1>
+<h3>C'est au joueur <span class="quijoue">rouge</span> de jouer <img id="dessinJ" class="rouge"></img></h3>
+      <table id="graphe" style="background-image: url(../media/graphe22.svg);">
+          <tr>
+              <td class="sommet bleu">5</td><td class="est"></td><td class="est"></td><td class="est"></td>
+              <td class="sommet"></td><td class="est"></td><td class="est"></td><td class="est"></td>
+              <td class="sommet rouge">5</td>
+        </tr>
+        <tr>
+            <td class="nord"></td><td class="nw"></td><td></td><td></td><td class="nord"></td><td></td><td></td><td class="ne"></td>
+            <td class="nord"></td>
+        </tr>
+        <tr>
+            <td class="nord"></td><td></td><td class="sommet"></td><td></td>
+            <td class="nord"></td><td></td><td class="sommet"></td><td></td>
+            <td class="nord"></td>
+        </tr>
+        <tr>
+            <td class="nord"></td><td></td><td></td><td class="nw"></td><td class="nord"></td><td class="ne"></td><td></td><td></td>
+            <td class="nord"></td>
+        </tr>
+          <tr>
+              <td class="sommet bleu">5</td><td class="est"></td><td class="est"></td><td class="est"></td>
+              <td class="sommet"></td><td class="est"></td><td class="est"></td><td class="est"></td>
+              <td class="sommet rouge">5</td>
+        </tr>
+        <tr>
+            <td class="nord"></td><td></td><td></td><td class="ne"></td><td class="nord"></td><td class="nw"></td><td></td><td></td>
+            <td class="nord"></td>
+        </tr>
+        <tr>
+            <td class="nord"></td><td></td><td class="sommet"></td><td></td>
+            <td class="nord"></td><td></td><td class="sommet"></td><td></td>
+            <td class="nord"></td>
+        </tr>
+        <tr>
+            <td class="nord"></td><td class="ne"></td><td></td><td></td><td class="nord"></td><td></td><td></td><td class="nw"></td>
+            <td class="nord"></td>
+        </tr>
+          <tr>
+              <td class="sommet bleu">5</td><td class="est"></td><td class="est"></td><td class="est"></td>
+              <td class="sommet"></td><td class="est"></td><td class="est"></td><td class="est"></td>
+              <td class="sommet rouge">5</td>
+        </tr>
+      </table>
+<script type="text/coffeescript">
+joueur = "rouge"
+adversaire = { "rouge": "bleu", "bleu": "rouge" }
+origine = $($("#graphe tr").get(0).cells[0].closest("td"))
+destination = $($("#graphe tr").get(1).cells[1].closest("td"))
+
+changeJ = ->
+        joueur = adversaire[joueur]
+        $(".quijoue").text joueur
+
+$ ->
+    vide = ->
+        (not destination.hasClass "rouge") and (not destination.hasClass "bleu") || (not origine.hasClass "rouge") and (not origine.hasClass "bleu")
+    nbvies = (cell) ->
+        parseInt(cell.text())
+    unCoup = (who) ->
+                if (origine.hasClass joueur) and vide() and origine.text() != '0'
+                    origine.removeClass joueur
+                    nbv = nbvies origine
+                    origine.text '0'
+                    destination.addClass joueur
+                    destination.text (nbv-1).toString()
+                    changeJ()
+                if (destination.hasClass joueur) and vide() and destination.text() != '0'
+                    destination.removeClass joueur
+                    nbv = nbvies destination
+                    destination.text '0'
+                    origine.addClass joueur
+                    origine.text (nbv-1).toString()
+                    changeJ()
+    $(".nord").on 'click', ->
+        j = $(this).closest("tr").index()
+        i = $(this).closest("td").index()
+        j -= j%4
+        origine = $($("#graphe tr").get(j).cells[i].closest("td"))
+        destination = $($("#graphe tr").get(j+4).cells[i].closest("td"))
+        unCoup(joueur)
+    $(".est").on 'click', ->
+        j = $(this).closest("tr").index()
+        i = $(this).closest("td").index()
+        i -= i%4
+        origine = $($("#graphe tr").get(j).cells[i].closest("td"))
+        destination = $($("#graphe tr").get(j).cells[i+4].closest("td"))
+        unCoup(joueur)
+    $(".ne").on 'click', ->
+        j = $(this).closest("tr").index()
+        i = $(this).closest("td").index()
+        origine = $($("#graphe tr").get(j-1).cells[i+1].closest("td"))
+        destination = $($("#graphe tr").get(j+1).cells[i-1].closest("td"))
+        unCoup(joueur)
+    $(".nw").on 'click', ->
+        j = $(this).closest("tr").index()
+        i = $(this).closest("td").index()
+        origine = $($("#graphe tr").get(j-1).cells[i-1].closest("td"))
+        destination = $($("#graphe tr").get(j+1).cells[i+1].closest("td"))
+        unCoup(joueur)
+                    
+</script>
+
+
+</body>
+</html>
 
