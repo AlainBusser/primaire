@@ -71,8 +71,8 @@ $ ->
                 $(this).addClass "selected"
                 x1 = $(this).index()
                 y1 = $(this).parent().index()
-                for x in [0...6]
-                    for y in [0...6]
+                for x in [0...5]
+                    for y in [0...5]
                         if Math.abs(x-x1)==1 and Math.abs(y-y1)==1
                             cellule = $("#echiquier tr").eq(y).children().eq(x)
                             if cellule.text()!="♙"
@@ -112,8 +112,8 @@ $ ->
                 $(this).addClass "selected"
                 x1 = $(this).index()
                 y1 = $(this).parent().index()
-                for x in [0...6]
-                    for y in [0...6]
+                for x in [0...5]
+                    for y in [0...5]
                         if Math.abs(x-x1)==1 and Math.abs(y-y1)==1
                             cellule = $("#echiquier tr").eq(y).children().eq(x)
                             if cellule.text()!="♟"
