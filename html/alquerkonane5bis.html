@@ -11,24 +11,35 @@
 
   </head>
   <body>
-	  <h1>Alquerkonane 3×3</h1>
+	  <h1>Alquerkonane 5×5</h1>
 <table id="echiquier">
 	<tr>
-		<td class="noire"><div>♟</div></td><td class="blanche"></td><td class="noire"><div>♟</div></td>
+		<td class="blanche"></td><td class="noire"><div>♟</div></td><td class="blanche"></td><td class="noire"><div>♟</div></td>
+		<td class="blanche"></td>
 	</tr>
 	<tr>
-		<td class="blanche">♙</td><td class="noire"><div>♟</div></td><td class="blanche">♙</td></td>
+		<td class="noire"><div>♟</div></td><td class="blanche"></td><td class="noire"><div>♟</div></td><td class="blanche"></td>
+		<td class="noire"><div>♟</div></td>
 	</tr>
 	<tr>
-		<td class="noire"></td><td class="blanche"><div>♙</div></td><td class="noire"></td>
+		<td class="blanche"></td><td class="noire"></td><td class="blanche"></td><td class="noire"></td>
+		<td class="blanche"></td>
+	</tr>
+	<tr>
+		<td class="noire"></td><td class="blanche"><div>♙</div></td><td class="noire"></td><td class="blanche"><div>♙</div></td>
+		<td class="noire"></td>
+	</tr>
+	<tr>
+		<td class="blanche"><div>♙</div></td><td class="noire"></td><td class="blanche"><div>♙</div></td><td class="noire"></td>
+		<td class="blanche"><div>♙</div></td>
 	</tr>
 </table>
-<h3>C'est aux <span id="joueur">blancs</span> de jouer</h3>
+<h3>C'est aux <span id="joueur">noirs</span> de jouer</h3>
 
 
 	  
 <script type="text/coffeescript">
-joueur = 0		
+joueur = 1		
 joueurs = ['blancs', 'noirs']
 
 $ ->
@@ -60,8 +71,8 @@ $ ->
                 $(this).addClass "selected"
                 x1 = $(this).index()
                 y1 = $(this).parent().index()
-                for x in [0...3]
-                    for y in [0...3]
+                for x in [0...5]
+                    for y in [0...5]
                         if Math.abs(x-x1)==1 and Math.abs(y-y1)==1
                             cellule = $("#echiquier tr").eq(y).children().eq(x)
                             if cellule.text()!="♙"
@@ -101,8 +112,8 @@ $ ->
                 $(this).addClass "selected"
                 x1 = $(this).index()
                 y1 = $(this).parent().index()
-                for x in [0...3]
-                    for y in [0...3]
+                for x in [0...5]
+                    for y in [0...5]
                         if Math.abs(x-x1)==1 and Math.abs(y-y1)==1
                             cellule = $("#echiquier tr").eq(y).children().eq(x)
                             if cellule.text()!="♟"
