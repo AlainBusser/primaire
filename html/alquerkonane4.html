@@ -14,16 +14,16 @@
 	  <h1>Alquerkonane 4×4</h1>
 <table id="echiquier">
 	<tr>
-		<td class="noire"><div>♟</div></td><td class="blanche"></td><td class="noire"><div>♟</div></td><td class="blanche"></td>
+		<td class="noire"><div>⛂</div></td><td class="blanche"></td><td class="noire"><div>⛂</div></td><td class="blanche"></td>
 	</tr>
 	<tr>
-		<td class="blanche"></td><td class="noire"><div>♟</div></td><td class="blanche"></td><td class="noire"><div>♟</div></td>
+		<td class="blanche"></td><td class="noire"><div>⛂</div></td><td class="blanche"></td><td class="noire"><div>⛂</div></td>
 	</tr>
 	<tr>
-		<td class="noire"></td><td class="blanche"><div>♙</div></td><td class="noire"></td><td class="blanche"><div>♙</div></td>
+		<td class="noire"></td><td class="blanche"><div>⛀</div></td><td class="noire"></td><td class="blanche"><div>⛀</div></td>
 	</tr>
 	<tr>
-		<td class="blanche"><div>♙</div></td><td class="noire"></td><td class="blanche"><div>♙</div></td><td class="noire"></td>
+		<td class="blanche"><div>⛀</div></td><td class="noire"></td><td class="blanche"><div>⛀</div></td><td class="noire"></td>
 	</tr>
 </table>
 <h3>C'est aux <span id="joueur">blancs</span> de jouer</h3>
@@ -46,7 +46,7 @@ $ ->
             ym = (y+y1)/2
             $("#echiquier tr").eq(ym).children().eq(xm).text("")
         $(".selected").text("")
-        $(this).text("♙")
+        $(this).text("⛀")
         $("#echiquier td").removeClass("selected").removeClass("buzz1")
         $(".selected").removeClass "selected"
         joueur = 1
@@ -54,7 +54,7 @@ $ ->
       else
         $("td").each ->
             $(this).removeClass "buzz1"
-        if joueur==0 and $(this).text()=="♙"
+        if joueur==0 and $(this).text()=="⛀"
             if $(this).hasClass "selected"
                 $(this).removeClass "selected"
             else
@@ -67,14 +67,14 @@ $ ->
                     for y in [0...4]
                         if Math.abs(x-x1)==1 and Math.abs(y-y1)==1
                             cellule = $("#echiquier tr").eq(y).children().eq(x)
-                            if cellule.text()!="♙"
+                            if cellule.text()!="⛀"
                                 cellule.addClass "buzz1"
                         if (Math.abs(x-x1)==2 and y==y1) or (Math.abs(y-y1)==2 and x==x1)
                             xm = (x+x1)/2
                             ym = (y+y1)/2
-                            if $("#echiquier tr").eq(ym).children().eq(xm).text()=="♟"
+                            if $("#echiquier tr").eq(ym).children().eq(xm).text()=="⛂"
                                 cellule = $("#echiquier tr").eq(y).children().eq(x)
-                                if cellule.text()!="♙"
+                                if cellule.text()!="⛀"
                                     cellule.addClass "buzz1"
     $(".noire").on "click", ->
       if $(this).hasClass "buzz2"
@@ -87,7 +87,7 @@ $ ->
             ym = (y+y1)/2
             $("#echiquier tr").eq(ym).children().eq(xm).text("")
         $(".selected").text("")
-        $(this).text("♟")
+        $(this).text("⛂")
         $("#echiquier td").removeClass("selected").removeClass("buzz2")
         $(".selected").removeClass "selected"
         joueur = 0
@@ -95,7 +95,7 @@ $ ->
       else
         $("td").each ->
             $(this).removeClass "buzz2"
-        if joueur==1 and $(this).text()=="♟"
+        if joueur==1 and $(this).text()=="⛂"
             if $(this).hasClass "selected"
                 $(this).removeClass "selected"
             else
@@ -108,14 +108,14 @@ $ ->
                     for y in [0...4]
                         if Math.abs(x-x1)==1 and Math.abs(y-y1)==1
                             cellule = $("#echiquier tr").eq(y).children().eq(x)
-                            if cellule.text()!="♟"
+                            if cellule.text()!="⛂"
                                 cellule.addClass "buzz2"
                         if (Math.abs(x-x1)==2 and y==y1) or (Math.abs(y-y1)==2 and x==x1)
                             xm = (x+x1)/2
                             ym = (y+y1)/2
-                            if $("#echiquier tr").eq(ym).children().eq(xm).text()=="♙"
+                            if $("#echiquier tr").eq(ym).children().eq(xm).text()=="⛀"
                                 cellule = $("#echiquier tr").eq(y).children().eq(x)
-                                if cellule.text()!="♟"
+                                if cellule.text()!="⛂"
                                     cellule.addClass "buzz2"
 
 </script>

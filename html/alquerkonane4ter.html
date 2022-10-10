@@ -1,7 +1,6 @@
 <html lang="fr">
   <head>
-    <title>Alquerkonane
-</title>
+    <title>Alquerkonane</title>
     <meta charset="utf-8">
   <link rel="stylesheet" href="../css/jquery-ui.css" />
   <link rel="stylesheet" href="../css/nirina2.css" />
@@ -12,63 +11,49 @@
 
   </head>
   <body>
-	  <h1>Alquerkonane &#9920; &#9922;</h1>
+	  <h1>Alquerkonane 4×4</h1>
 <table id="echiquier">
 	<tr>
-		<td class="noire"><div>♟</div></td><td class="blanche"></td><td class="noire"><div>♟</div></td><td class="blanche"></td>
-		<td class="noire"><div>♟</div></td><td class="blanche"></td><td class="noire"><div>♟</div></td><td class="blanche"></td>
+		<td class="noire"><div>⛂</div></td><td class="blanche"></td><td class="noire"><div>⛂</div></td><td class="blanche"></td>
 	</tr>
 	<tr>
-		<td class="blanche"></td><td class="noire"><div>♟</div></td><td class="blanche"></td><td class="noire"><div>♟</div></td>
-		<td class="blanche"></td><td class="noire"><div>♟</div></td><td class="blanche"></td><td class="noire"><div>♟</div></td>
+		<td class="blanche"></td><td class="noire"><div>⛂</div></td><td class="blanche"></td><td class="noire"><div>⛂</div></td>
 	</tr>
 	<tr>
-		<td class="noire"></td><td class="blanche"></td><td class="noire"></td><td class="blanche"></td>
-		<td class="noire"></td><td class="blanche"></td><td class="noire"></td><td class="blanche"></td>
+		<td class="noire"></td><td class="blanche"><div>⛀</div></td><td class="noire"></td><td class="blanche"><div>⛀</div></td>
 	</tr>
 	<tr>
-		<td class="blanche"></td><td class="noire"></td><td class="blanche"></td><td class="noire"></td>
-		<td class="blanche"></td><td class="noire"></td><td class="blanche"></td><td class="noire"></td>
-	</tr>
-	<tr>
-		<td class="noire"></td><td class="blanche"></td><td class="noire"></td><td class="blanche"></td>
-		<td class="noire"></td><td class="blanche"></td><td class="noire"></td><td class="blanche"></td>
-	</tr>
-	<tr>
-		<td class="blanche"></td><td class="noire"></td><td class="blanche"></td><td class="noire"></td>
-		<td class="blanche"></td><td class="noire"></td><td class="blanche"></td><td class="noire"></td>
-	</tr>
-	<tr>
-		<td class="noire"></td><td class="blanche"><div>♙</div></td><td class="noire"></td><td class="blanche"><div>♙</div></td>
-		<td class="noire"></td><td class="blanche"><div>♙</div></td><td class="noire"></td><td class="blanche"><div>♙</div></td>
-	</tr>
-	<tr>
-		<td class="blanche"><div>♙</div></td><td class="noire"></td><td class="blanche"><div>♙</div></td><td class="noire"></td>
-		<td class="blanche"><div>♙</div></td><td class="noire"></td><td class="blanche"><div>♙</div></td><td class="noire"></td>
+		<td class="blanche"><div>⛀</div></td><td class="noire"></td><td class="blanche"><div>⛀</div></td><td class="noire"></td>
 	</tr>
 </table>
 <h3>C'est aux <span id="joueur">blancs</span> de jouer</h3>
+<h4>score blancs&nbsp;: <code id="pb">-2</code></h4>
+<h4>score noirs&nbsp;: <code id="pn">-2</code></h4>
 
-<div class="regle">
-    <h2>Règle du jeu</h2>
-	  <p>Chaque pion ne figure que sur une case de sa propre couleur, et y reste:
-	  <ul>
-		  <li>Les pions ne bougent que diagonalement, d'une seule case;</li>
-		  <li>La prise se fait en sautant par-dessus un pion de la couleur adverse, comme au solitaire ou au Konane.</li>
-	  </ul>
-	  </p>
-<p>Le but du jeu est de prendre tous les pions de l'adversaire.</p>
-<footer>Jeu inventé par Nirina Mussard, à l'âge de 7 ans</footer>
-</div>	  
 
 	  
 <script type="text/coffeescript">
 joueur = 0		
 joueurs = ['blancs', 'noirs']
+pb = -2
+pn = -2
+maj = () ->
+    pb = 0
+    pn = 0
+    $("#echiquier td").each ->
+        if $(this).text()=="⛀"
+            pb += $(this).parent().index()
+            pn -= 3
+        if $(this).text()=="⛂"
+            pn += 3-$(this).parent().index()
+            pb -= 3
+    $("#pb").text pb
+    $("#pn").text pn
+
 
 $ ->
-    $(".regle").draggable()
     $(".blanche").on "click", ->
+      maj()
       if $(this).hasClass "buzz1"
         x = $(this).index()
         y = $(this).parent().index()
@@ -79,7 +64,7 @@ $ ->
             ym = (y+y1)/2
             $("#echiquier tr").eq(ym).children().eq(xm).text("")
         $(".selected").text("")
-        $(this).text("♙")
+        $(this).text("⛀")
         $("#echiquier td").removeClass("selected").removeClass("buzz1")
         $(".selected").removeClass "selected"
         joueur = 1
@@ -87,7 +72,7 @@ $ ->
       else
         $("td").each ->
             $(this).removeClass "buzz1"
-        if joueur==0 and $(this).text()=="♙"
+        if joueur==0 and $(this).text()=="⛀"
             if $(this).hasClass "selected"
                 $(this).removeClass "selected"
             else
@@ -96,20 +81,21 @@ $ ->
                 $(this).addClass "selected"
                 x1 = $(this).index()
                 y1 = $(this).parent().index()
-                for x in [0...8]
-                    for y in [0...8]
-                        if Math.abs(x-x1)==1 and Math.abs(y-y1)==1
+                for x in [0...4]
+                    for y in [0...4]
+                        if Math.abs(x-x1)==1 and y-y1==-1
                             cellule = $("#echiquier tr").eq(y).children().eq(x)
-                            if cellule.text()!="♙"
+                            if cellule.text()!="⛀"
                                 cellule.addClass "buzz1"
                         if (Math.abs(x-x1)==2 and y==y1) or (Math.abs(y-y1)==2 and x==x1)
                             xm = (x+x1)/2
                             ym = (y+y1)/2
-                            if $("#echiquier tr").eq(ym).children().eq(xm).text()=="♟"
+                            if $("#echiquier tr").eq(ym).children().eq(xm).text()=="⛂"
                                 cellule = $("#echiquier tr").eq(y).children().eq(x)
-                                if cellule.text()!="♙"
+                                if cellule.text()!="⛀"
                                     cellule.addClass "buzz1"
     $(".noire").on "click", ->
+      maj()
       if $(this).hasClass "buzz2"
         x = $(this).index()
         y = $(this).parent().index()
@@ -120,7 +106,7 @@ $ ->
             ym = (y+y1)/2
             $("#echiquier tr").eq(ym).children().eq(xm).text("")
         $(".selected").text("")
-        $(this).text("♟")
+        $(this).text("⛂")
         $("#echiquier td").removeClass("selected").removeClass("buzz2")
         $(".selected").removeClass "selected"
         joueur = 0
@@ -128,7 +114,7 @@ $ ->
       else
         $("td").each ->
             $(this).removeClass "buzz2"
-        if joueur==1 and $(this).text()=="♟"
+        if joueur==1 and $(this).text()=="⛂"
             if $(this).hasClass "selected"
                 $(this).removeClass "selected"
             else
@@ -137,18 +123,18 @@ $ ->
                 $(this).addClass "selected"
                 x1 = $(this).index()
                 y1 = $(this).parent().index()
-                for x in [0...8]
-                    for y in [0...8]
-                        if Math.abs(x-x1)==1 and Math.abs(y-y1)==1
+                for x in [0...4]
+                    for y in [0...4]
+                        if Math.abs(x-x1)==1 and y-y1==1
                             cellule = $("#echiquier tr").eq(y).children().eq(x)
-                            if cellule.text()!="♟"
+                            if cellule.text()!="⛂"
                                 cellule.addClass "buzz2"
                         if (Math.abs(x-x1)==2 and y==y1) or (Math.abs(y-y1)==2 and x==x1)
                             xm = (x+x1)/2
                             ym = (y+y1)/2
-                            if $("#echiquier tr").eq(ym).children().eq(xm).text()=="♙"
+                            if $("#echiquier tr").eq(ym).children().eq(xm).text()=="⛀"
                                 cellule = $("#echiquier tr").eq(y).children().eq(x)
-                                if cellule.text()!="♟"
+                                if cellule.text()!="⛂"
                                     cellule.addClass "buzz2"
 
 </script>
